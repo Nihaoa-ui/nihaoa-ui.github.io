@@ -1,0 +1,10 @@
+#!/bin/bash
+# Hexo 启动器：优先用 PATH 里的 node，找不到就用 DSH 自带的 Node
+set -e
+DIR="$(cd "$(dirname "$0")" && pwd)"
+if command -v node >/dev/null 2>&1; then
+  NODE="$(command -v node)"
+else
+  NODE="/Users/jiashen/.dsh/dsh-runtimes/dsh-primary-runtime/dependencies/node/bin/node"
+fi
+exec "$NODE" "$DIR/node_modules/hexo/bin/hexo" "$@"
