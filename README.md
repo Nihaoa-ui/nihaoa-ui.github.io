@@ -62,15 +62,13 @@ gh auth setup-git      # 让 git 用 gh 的凭据
 所以**不要**在 GitHub 网页上直接改 `main` 里的 HTML，也不要在旧电脑的另一个
 Hexo 项目里发布——两边会互相覆盖，以后统一在这台机器上写。
 
-## 备份源码（建议）
+## 备份源码
+
+本地仓库已经初始化好：分支 `source`，remote `origin` 指向同一个 GitHub 仓库。
+只差推送（和发布一样，需要先登录）：
 
 ```bash
-cd blog
-git init
-git add .
-git commit -m "backup: hexo source"
-git remote add origin https://github.com/Nihaoa-ui/nihaoa-ui.github.io.git
-git checkout -b source
+gh auth login && gh auth setup-git
 git push -u origin source
 ```
 
