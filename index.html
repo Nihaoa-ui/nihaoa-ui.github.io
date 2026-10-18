@@ -3,16 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>小董的博客</title>
-  <meta name="description" content="小董的博客">
+  <title>风尽起长歌</title>
+  <meta name="description" content="数学系大一的 Go 后端笔记：踩过的坑、搭过的东西，和没想明白的问题。">
   <link rel="icon" href="/img/favicon.png">
   <link rel="stylesheet" href="/css/style.css">
 <meta name="generator" content="Hexo 7.3.0"></head>
 
 <body>
-  <header class="masthead">
-  <div class="container masthead-inner">
-    <a class="brand" href="/">小董的博客</a>
+  <header class="topbar">
+  <div class="container topbar-inner">
+    <a class="brand" href="/">
+      <span class="brand-name">风尽起长歌</span>
+      <span class="brand-sub">NOTES</span>
+    </a>
     <nav class="nav">
       
         <a href="/">文章</a>
@@ -26,7 +29,7 @@
         <a href="/about/">关于</a>
       
     </nav>
-    <a class="nav-ext" href="https://github.com/Nihaoa-ui" target="_blank" rel="noopener">GitHub ↗</a>
+    <span class="seal" aria-hidden="true">董</span>
   </div>
 </header>
 
@@ -36,74 +39,140 @@
 
 
 
-<section class="feature">
-  <div class="kicker">
-    <span>学习笔记</span>
-    <span>2026-09-29</span>
-    <span class="kicker-latest">精选</span>
-  </div>
-  <h1 class="feature-title"><a href="/2026/09/29/go-basics-notes/">Go 入门笔记：8 个我踩过的坑，每个都来自我写的校园失物招领后端</a></h1>
-  <p class="lede">我是数学系大一，社团大作业要做一套校园失物招领系统，我认领了后端。选 Go 的理由很功利：语法少、编译快、交叉编译出一条命令就能扔到服务器上跑，没有虚拟机也没有一堆依赖要装。 仓库第一天的样子是——所有接口、所有数据库操作，全堆在 main.go 里。两周后它…</p>
-  <div class="meta">
-    <span>约 17 分钟</span>
-    <span class="hash">#Go</span><span class="hash">#后端</span><span class="hash">#Gin</span>
-  </div>
+<section class="preface">
+  <div class="preface-label">卷首 · PREFACE</div>
+  <p class="preface-text">数学系大一，在写 Go 后端。这里放踩过的坑、搭过的东西，和一些还没想明白的问题。</p>
 </section>
 
+<div class="home-grid">
+  <section class="notes">
+    <div class="section-head">
+      <h2>近作</h2>
+      <span class="section-note">共 5 篇</span>
+    </div>
 
-<section class="section">
-  <div class="section-head">
-    <h2>近期文章</h2>
-    <a class="more" href="/archives/">全部 5 篇 →</a>
-  </div>
+    <div class="card-grid">
+      
+        <article class="card card-feature">
+          <div class="card-meta">
+            <span class="no">01</span>
+            <span>2026-09-29</span>
+            <span>学习笔记</span>
+            <span class="card-latest">最新</span>
+          </div>
+          <h3 class="card-title"><a href="/2026/09/29/go-basics-notes/">Go 入门笔记：8 个我踩过的坑，每个都来自我写的校园失物招领后端</a></h3>
+          <p class="card-excerpt">我是数学系大一，社团大作业要做一套校园失物招领系统，我认领了后端。选 Go 的理由很功利：语法少、编译快、交叉编译出一条命令就能扔到服务器上跑，没有虚拟机也没有一堆依赖要装。 仓库第一天的样子是——所有接口、所有数据库操作，全堆在 main.go 里。…</p>
+          <div class="card-foot">
+            <span>约 17 分钟</span>
+            <span class="hash">#Go</span><span class="hash">#后端</span><span class="hash">#Gin</span>
+          </div>
+        </article>
+      
 
-  <ul class="post-list">
-    
-      <li class="post-item">
-        <div class="post-date">10-18<em>2026</em></div>
-        <div class="post-body">
-          <div class="post-cat">随笔</div>
-          <h3><a href="/2026/10/18/newcomputer-first-note/">转到新电脑的第一篇文章</a></h3>
-          <p>香菜就是大变！！</p>
-        </div>
-      </li>
-    
-      <li class="post-item">
-        <div class="post-date">09-06<em>2026</em></div>
-        <div class="post-body">
-          <div class="post-cat">随笔</div>
-          <h3><a href="/2026/09/06/%E6%88%91%E7%9A%84%E6%90%AD%E5%BB%BA%E7%BB%8F%E5%8E%86/">我的搭建经历</a></h3>
-          <p>今天花了一个多小时，从零搭好了自己的博客。记录一下全过程，也给以后留个备忘。 一、准备环境 工具 说明 Node.js 电脑本来就有（v24） npm 本来就有 Git 没有，用 …</p>
-        </div>
-      </li>
-    
-      <li class="post-item">
-        <div class="post-date">09-06<em>2026</em></div>
-        <div class="post-body">
-          <div class="post-cat">随笔</div>
-          <h3><a href="/2026/09/06/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/">我的第一篇文章</a></h3>
-          <p>我是个好人</p>
-        </div>
-      </li>
-    
-      <li class="post-item">
-        <div class="post-date">09-06<em>2026</em></div>
-        <div class="post-body">
-          <div class="post-cat">随笔</div>
-          <h3><a href="/2026/09/06/hello-world/">Hello World</a></h3>
-          <p>Welcome to Hexo! This is your very first post. Check documentation for more info. If you g…</p>
-        </div>
-      </li>
-    
-  </ul>
+      
+        <article class="card">
+          <div class="card-meta">
+            <span class="no">02</span>
+            <span>10-18</span>
+            <span>随笔</span>
+          </div>
+          <h3 class="card-title"><a href="/2026/10/18/newcomputer-first-note/">转到新电脑的第一篇文章</a></h3>
+          <p class="card-excerpt">香菜就是大变！！</p>
+          <div class="card-foot">
+            <span>约 1 分钟</span>
+            <span class="hash">#无聊的日常</span>
+          </div>
+        </article>
+      
+        <article class="card">
+          <div class="card-meta">
+            <span class="no">03</span>
+            <span>09-06</span>
+            <span>随笔</span>
+          </div>
+          <h3 class="card-title"><a href="/2026/09/06/%E6%88%91%E7%9A%84%E6%90%AD%E5%BB%BA%E7%BB%8F%E5%8E%86/">我的搭建经历</a></h3>
+          <p class="card-excerpt">今天花了一个多小时，从零搭好了自己的博客。记录一下全过程，也给以后留个备忘。 一、准备环境 工具 说明 Node.js 电脑本来就有（v24） npm 本来就有…</p>
+          <div class="card-foot">
+            <span>约 2 分钟</span>
+            
+          </div>
+        </article>
+      
+        <article class="card">
+          <div class="card-meta">
+            <span class="no">04</span>
+            <span>09-06</span>
+            <span>随笔</span>
+          </div>
+          <h3 class="card-title"><a href="/2026/09/06/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/">我的第一篇文章</a></h3>
+          <p class="card-excerpt">我是个好人</p>
+          <div class="card-foot">
+            <span>约 1 分钟</span>
+            
+          </div>
+        </article>
+      
+        <article class="card">
+          <div class="card-meta">
+            <span class="no">05</span>
+            <span>09-06</span>
+            <span>随笔</span>
+          </div>
+          <h3 class="card-title"><a href="/2026/09/06/hello-world/">Hello World</a></h3>
+          <p class="card-excerpt">Welcome to Hexo! This is your very first post. Check documentation for more info…</p>
+          <div class="card-foot">
+            <span>约 1 分钟</span>
+            
+          </div>
+        </article>
+      
+    </div>
 
-  
-</section>
+    
+  </section>
+
+  <aside class="side">
+    <section class="side-block">
+      <h4>分类索引</h4>
+      <ul class="side-list">
+        
+          <li><a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><span>学习笔记</span><em>1</em></a></li>
+        
+      </ul>
+    </section>
+
+    <section class="side-block">
+      <h4>标签</h4>
+      <div class="side-tags">
+        
+          <a href="/tags/Gin/">#Gin</a>
+        
+          <a href="/tags/Go/">#Go</a>
+        
+          <a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a>
+        
+          <a href="/tags/%E6%97%A0%E8%81%8A%E7%9A%84%E6%97%A5%E5%B8%B8/">#无聊的日常</a>
+        
+      </div>
+    </section>
+
+    <section class="side-block">
+      <h4>关于</h4>
+      <p class="side-text">数学系大一，社团项目里认领了后端。文章里的密钥都换过。</p>
+      <a class="side-more" href="/about/">关于我 →</a>
+    </section>
+
+    <section class="side-block">
+      <h4>存档</h4>
+      <a class="side-more" href="/archives/">全部 5 篇 →</a>
+    </section>
+  </aside>
+</div>
 
   </main>
   <footer class="footer">
   <div class="container footer-inner">
-    <span>© 2026 小董</span>
+    <span>© 2026 风尽起长歌</span>
     <span>Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a></span>
   </div>
 </footer>
