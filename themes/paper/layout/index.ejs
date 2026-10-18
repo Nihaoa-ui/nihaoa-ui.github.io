@@ -1,3 +1,22 @@
+<section class="hero">
+  <div class="hero-inner container">
+    <div class="hero-kicker">NOTES · SINCE 2026</div>
+    <h1 class="hero-title"><%= config.title %></h1>
+    <p class="hero-sub"><%= config.description %></p>
+    <div class="hero-meta">
+      <span><%= site.posts.length %> 篇</span>
+      <span><%= site.categories.length %> 个分类</span>
+      <span><%= site.tags.length %> 个标签</span>
+    </div>
+  </div>
+  <svg class="hero-wave" viewBox="0 0 1440 110" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,62 C240,100 460,18 740,44 C1000,68 1220,24 1440,56 L1440,110 L0,110 Z" fill="#ddd0b8"/>
+    <path d="M0,78 C260,108 520,38 800,60 C1040,78 1250,44 1440,70 L1440,110 L0,110 Z" fill="#f8f3e8"/>
+  </svg>
+</section>
+
+<div class="sheet">
+  <div class="container">
 <% var posts = page.posts.toArray(); %>
 <% var featured = posts.find(function (p) { return p.featured; }) || posts[0]; %>
 <% var rest = posts.filter(function (p) { return p !== featured; }); %>
@@ -89,4 +108,6 @@
       <a class="side-more" href="<%- url_for('/archives/') %>">全部 <%= site.posts.length %> 篇 →</a>
     </section>
   </aside>
+</div>
+  </div>
 </div>

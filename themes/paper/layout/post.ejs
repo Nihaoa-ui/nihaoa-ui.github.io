@@ -1,30 +1,50 @@
-<article class="post">
-  <header class="post-header">
-    <div class="kicker">
+<section class="hero hero-post">
+  <div class="hero-inner container hero-post-inner">
+    <div class="hero-kicker">
       <span><%= first_category(page) %></span>
       <span><%= date(page.date, 'YYYY-MM-DD') %></span>
       <span>约 <%= reading_time(page) %> 分钟</span>
     </div>
-    <h1><%= page.title %></h1>
-    <% if (page.description) { %><p class="lede"><%= page.description %></p><% } %>
-  </header>
-
-  <div class="prose">
-    <%- page.content %>
-  </div>
-
-  <% if (page.tags && page.tags.length) { %>
-    <div class="post-tags">
-      <% page.tags.each(function (tag) { %><a href="<%- url_for(tag.path) %>">#<%= tag.name %></a><% }) %>
+    <h1 class="hero-title hero-post-title"><%= page.title %></h1>
+    <div class="hero-meta">
+      <% page.tags.each(function (tag) { %><span>#<%= tag.name %></span><% }) %>
     </div>
-  <% } %>
+  </div>
+  <svg class="hero-wave" viewBox="0 0 1440 110" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,62 C240,100 460,18 740,44 C1000,68 1220,24 1440,56 L1440,110 L0,110 Z" fill="#ddd0b8"/>
+    <path d="M0,78 C260,108 520,38 800,60 C1040,78 1250,44 1440,70 L1440,110 L0,110 Z" fill="#f8f3e8"/>
+  </svg>
+</section>
 
-  <nav class="post-nav">
-    <% if (page.prev) { %>
-      <a class="prev" href="<%- url_for(page.prev.path) %>"><span>上一篇</span><%= page.prev.title %></a>
+<% var tocHtml = toc(page.content, { list_number: false }); %>
+<div class="sheet">
+  <div class="container post-wrap<%= tocHtml ? '' : ' no-toc' %>">
+    <article class="post">
+      <div class="prose">
+        <%- page.content %>
+      </div>
+
+      <% if (page.tags && page.tags.length) { %>
+        <div class="post-tags">
+          <% page.tags.each(function (tag) { %><a href="<%- url_for(tag.path) %>">#<%= tag.name %></a><% }) %>
+        </div>
+      <% } %>
+
+      <nav class="post-nav">
+        <% if (page.prev) { %>
+          <a class="prev" href="<%- url_for(page.prev.path) %>"><span>上一篇</span><%= page.prev.title %></a>
+        <% } %>
+        <% if (page.next) { %>
+          <a class="next" href="<%- url_for(page.next.path) %>"><span>下一篇</span><%= page.next.title %></a>
+        <% } %>
+      </nav>
+    </article>
+
+    <% if (tocHtml) { %>
+      <aside class="toc">
+        <div class="toc-title">目录</div>
+        <%- tocHtml %>
+      </aside>
     <% } %>
-    <% if (page.next) { %>
-      <a class="next" href="<%- url_for(page.next.path) %>"><span>下一篇</span><%= page.next.title %></a>
-    <% } %>
-  </nav>
-</article>
+  </div>
+</div>

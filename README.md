@@ -4,7 +4,7 @@
 生成结果已与线上逐字节比对：首页、4 篇文章、归档/分类/标签/友链页、404、搜索索引全部一致。
 
 - Hexo `7.3.0`
-- 主题：自建 `themes/paper`（索引卡 / 卷首版式；Fluid `1.9.9` 仍装着，把 `_config.yml` 的 `theme` 改成 `fluid` 可切回）
+- 主题：自建 `themes/paper`（墨色首屏 + 波浪落纸 + 索引卡 + 文章目录；Fluid `1.9.9` 仍装着，把 `_config.yml` 的 `theme` 改成 `fluid` 可切回）
 - 时区 `Asia/Shanghai`
 - 部署目标：`https://github.com/Nihaoa-ui/nihaoa-ui.github.io.git` 的 `main` 分支
 
