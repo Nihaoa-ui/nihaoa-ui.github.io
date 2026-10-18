@@ -4,7 +4,7 @@
 生成结果已与线上逐字节比对：首页、4 篇文章、归档/分类/标签/友链页、404、搜索索引全部一致。
 
 - Hexo `7.3.0`
-- 主题 Fluid `1.9.9`
+- 主题：自建 `themes/paper`（纸感排版；Fluid `1.9.9` 仍装着，把 `_config.yml` 的 `theme` 改成 `fluid` 可切回）
 - 时区 `Asia/Shanghai`
 - 部署目标：`https://github.com/Nihaoa-ui/nihaoa-ui.github.io.git` 的 `main` 分支
 
@@ -13,9 +13,9 @@
 ```
 blog/
 ├── _config.yml          # 站点配置（标题、网址、部署）
-├── _config.fluid.yml    # 主题配置
+├── _config.fluid.yml    # Fluid 主题配置（备用）
+├── themes/paper/        # 当前主题：模板 + CSS 都在这里
 ├── source/_posts/       # ← 文章都写在这里
-├── source/links/        # 友链页
 ├── public/              # 生成结果（已被 .gitignore 忽略）
 └── hexo                 # 启动脚本，等价于 hexo 命令
 ```
@@ -43,6 +43,7 @@ tags:
 正文用 Markdown。想控制首页摘要长度，在要截断的位置加一行 `<!-- more -->`。
 Fluid 还支持 `math: true`（公式）、`mermaid: true`（流程图）、`sticky: 100`（置顶）、
 `description`、`index_img` 等字段，按需加在 front-matter 里。
+想让某篇文章上首页大标题，在 front-matter 加 `featured: true`（不加则默认取最新一篇）。
 
 ## 本地预览
 

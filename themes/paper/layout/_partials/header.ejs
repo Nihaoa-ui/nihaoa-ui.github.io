@@ -1,0 +1,11 @@
+<header class="masthead">
+  <div class="container masthead-inner">
+    <a class="brand" href="<%- url_for('/') %>"><%= config.title %></a>
+    <nav class="nav">
+      <% (theme.menu || []).forEach(function (item) { %>
+        <a href="<%- url_for(item.url) %>"><%= item.name %></a>
+      <% }) %>
+    </nav>
+    <a class="nav-ext" href="https://github.com/Nihaoa-ui" target="_blank" rel="noopener">GitHub ↗</a>
+  </div>
+</header>

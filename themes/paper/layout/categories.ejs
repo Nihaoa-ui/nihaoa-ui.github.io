@@ -1,0 +1,11 @@
+<header class="list-header">
+  <h1>分类</h1>
+  <p>共 <%= site.categories.length %> 个分类</p>
+</header>
+<div class="term-list">
+  <% site.categories.sort('name').each(function (cat) { %>
+    <a class="term" href="<%- url_for(cat.path) %>">
+      <span><%= cat.name %></span><em><%= cat.length %></em>
+    </a>
+  <% }) %>
+</div>

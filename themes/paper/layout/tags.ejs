@@ -1,0 +1,11 @@
+<header class="list-header">
+  <h1>标签</h1>
+  <p>共 <%= site.tags.length %> 个标签</p>
+</header>
+<div class="term-list">
+  <% site.tags.sort('name').each(function (tag) { %>
+    <a class="term" href="<%- url_for(tag.path) %>">
+      <span><%= tag.name %></span><em><%= tag.length %></em>
+    </a>
+  <% }) %>
+</div>

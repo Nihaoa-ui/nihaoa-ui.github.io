@@ -1,0 +1,30 @@
+<article class="post">
+  <header class="post-header">
+    <div class="kicker">
+      <span><%= first_category(page) %></span>
+      <span><%= date(page.date, 'YYYY-MM-DD') %></span>
+      <span>约 <%= reading_time(page) %> 分钟</span>
+    </div>
+    <h1><%= page.title %></h1>
+    <% if (page.description) { %><p class="lede"><%= page.description %></p><% } %>
+  </header>
+
+  <div class="prose">
+    <%- page.content %>
+  </div>
+
+  <% if (page.tags && page.tags.length) { %>
+    <div class="post-tags">
+      <% page.tags.each(function (tag) { %><a href="<%- url_for(tag.path) %>">#<%= tag.name %></a><% }) %>
+    </div>
+  <% } %>
+
+  <nav class="post-nav">
+    <% if (page.prev) { %>
+      <a class="prev" href="<%- url_for(page.prev.path) %>"><span>上一篇</span><%= page.prev.title %></a>
+    <% } %>
+    <% if (page.next) { %>
+      <a class="next" href="<%- url_for(page.next.path) %>"><span>下一篇</span><%= page.next.title %></a>
+    <% } %>
+  </nav>
+</article>

@@ -2,6 +2,7 @@
 title: Go 入门笔记：8 个我踩过的坑，每个都来自我写的校园失物招领后端
 date: 2026-09-29 19:10:00.000
 updated: 2026-09-29 19:03:40.965
+featured: true
 categories:
   - 学习笔记
 tags:
