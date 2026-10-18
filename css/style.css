@@ -1124,3 +1124,19 @@ body { background-color: #ece3d2; overflow-x: hidden; }
 }
 
 .post-wrap.no-toc { grid-template-columns: minmax(0, 760px); }
+
+/* standalone page */
+.page-wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding-top: 64px;
+  padding-bottom: 80px;
+}
+
+.page-wrap .post { max-width: none; margin: 0; padding: 0; }
+.hero-page .hero-post-inner { min-height: 32vh; }
+
+@media (max-width: 720px) {
+  .page-wrap { padding-top: 40px; }
+  .hero-page .hero-post-inner { min-height: 28vh; }
+}
