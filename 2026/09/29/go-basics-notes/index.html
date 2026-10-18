@@ -1,400 +1,60 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
-
-
-
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
-  <link rel="icon" href="/img/fluid.png">
-  
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="小董">
-  <meta name="keywords" content="">
-  
-    <meta name="description" content="我是数学系大一，社团大作业要做一套校园失物招领系统，我认领了后端。选 Go 的理由很功利：语法少、编译快、交叉编译出一条命令就能扔到服务器上跑，没有虚拟机也没有一堆依赖要装。 仓库第一天的样子是——所有接口、所有数据库操作，全堆在 main.go 里。两周后它变成了 handler &#x2F; service &#x2F; repository 分层的样子。这篇文章不打算复述 Go 的语法大全（那种文章已经太多了）">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Go 入门笔记：8 个我踩过的坑，每个都来自我写的校园失物招领后端">
-<meta property="og:url" content="https://nihaoa-ui.github.io/2026/09/29/go-basics-notes/index.html">
-<meta property="og:site_name" content="小董的博客">
-<meta property="og:description" content="我是数学系大一，社团大作业要做一套校园失物招领系统，我认领了后端。选 Go 的理由很功利：语法少、编译快、交叉编译出一条命令就能扔到服务器上跑，没有虚拟机也没有一堆依赖要装。 仓库第一天的样子是——所有接口、所有数据库操作，全堆在 main.go 里。两周后它变成了 handler &#x2F; service &#x2F; repository 分层的样子。这篇文章不打算复述 Go 的语法大全（那种文章已经太多了）">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2026-09-29T11:10:00.000Z">
-<meta property="article:modified_time" content="2026-09-29T11:03:40.965Z">
-<meta property="article:author" content="小董">
-<meta property="article:tag" content="Go">
-<meta property="article:tag" content="后端">
-<meta property="article:tag" content="Gin">
-<meta name="twitter:card" content="summary_large_image">
-  
-  
-  
-  <title>Go 入门笔记：8 个我踩过的坑，每个都来自我写的校园失物招领后端 - 小董的博客</title>
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
-
-
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-<!-- Do not modify the link that theme dependent icons -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-
-  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
-  
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
-  
-
-
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"nihaoa-ui.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
-
-    if (CONFIG.web_analytics.follow_dnt) {
-      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
-      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
-    }
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-  
-
-
-  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Go 入门笔记：8 个我踩过的坑，每个都来自我写的校园失物招领后端 · 小董的博客</title>
+  <meta name="description" content="小董的博客">
+  <link rel="icon" href="/img/favicon.png">
+  <link rel="stylesheet" href="/css/style.css">
 <meta name="generator" content="Hexo 7.3.0"></head>
 
-
 <body>
-  
-
-  <header>
-    
-
-<div class="header-inner" style="height: 70vh;">
-  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>Fluid</strong>
-    </a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content (desktop) -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/" target="_self">
-                <i class="iconfont icon-home-fill"></i>
-                <span>首页</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/" target="_self">
-                <i class="iconfont icon-archive-fill"></i>
-                <span>归档</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/" target="_self">
-                <i class="iconfont icon-category-fill"></i>
-                <span>分类</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/" target="_self">
-                <i class="iconfont icon-tags-fill"></i>
-                <span>标签</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/" target="_self">
-                <i class="iconfont icon-user-fill"></i>
-                <span>关于</span>
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              <i class="iconfont icon-search"></i>
-            </a>
-          </li>
-          
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
-              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
-            </a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-<!-- Mobile grid menu overlay -->
-<div id="mobile-grid-menu" class="d-lg-none">
-  <div class="mobile-grid-menu-inner">
-    <div class="container">
-      <div class="row">
-        
-          
-          
-          
-          
-            <div class="col-4 mobile-grid-cell">
-              <a href="/" target="_self">
-                <div class="mobile-grid-item">
-                  <i class="iconfont icon-home-fill"></i>
-                  <span>首页</span>
-                </div>
-              </a>
-            </div>
-          
-        
-          
-          
-          
-          
-            <div class="col-4 mobile-grid-cell">
-              <a href="/archives/" target="_self">
-                <div class="mobile-grid-item">
-                  <i class="iconfont icon-archive-fill"></i>
-                  <span>归档</span>
-                </div>
-              </a>
-            </div>
-          
-        
-          
-          
-          
-          
-            <div class="col-4 mobile-grid-cell">
-              <a href="/categories/" target="_self">
-                <div class="mobile-grid-item">
-                  <i class="iconfont icon-category-fill"></i>
-                  <span>分类</span>
-                </div>
-              </a>
-            </div>
-          
-        
-          
-          
-          
-          
-            <div class="col-4 mobile-grid-cell">
-              <a href="/tags/" target="_self">
-                <div class="mobile-grid-item">
-                  <i class="iconfont icon-tags-fill"></i>
-                  <span>标签</span>
-                </div>
-              </a>
-            </div>
-          
-        
-          
-          
-          
-          
-            <div class="col-4 mobile-grid-cell">
-              <a href="/about/" target="_self">
-                <div class="mobile-grid-item">
-                  <i class="iconfont icon-user-fill"></i>
-                  <span>关于</span>
-                </div>
-              </a>
-            </div>
-          
-        
-        
-          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
-            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              <div class="mobile-grid-item">
-                <i class="iconfont icon-search"></i>
-                <span>搜索</span>
-              </div>
-            </a>
-          </div>
-        
-        
-          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
-               data-label-light="开灯"
-               data-label-dark="关灯">
-            <a href="javascript:;" aria-label="Color Toggle">
-              <div class="mobile-grid-item">
-                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
-                <span id="mobile-color-toggle-label">关灯</span>
-              </div>
-            </a>
-          </div>
-        
-      </div>
-    </div>
-  </div>
-</div>
-
-  
-
-<div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
-  <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-      <div class="banner-text text-center fade-in-up">
-        <div class="h2">
-          
-            <span id="subtitle" data-typed-text="Go 入门笔记：8 个我踩过的坑，每个都来自我写的校园失物招领后端"></span>
-          
-        </div>
-
-        
-          
-  <div class="mt-3">
-    
-    
-      <span class="post-meta">
-        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2026-09-29 19:10" pubdate>
-          2026年9月29日 晚上
-        </time>
-      </span>
-    
-  </div>
-
-  <div class="mt-1">
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-chart"></i>
-        
-          7k 字
-        
-      </span>
-    
-
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-clock-fill"></i>
-        
-        
-        
-          59 分钟
-        
-      </span>
-    
-
-    
-    
-  </div>
-
-
-        
-      </div>
-
+  <header class="masthead">
+  <div class="container masthead-inner">
+    <a class="brand" href="/">小董的博客</a>
+    <nav class="nav">
       
-    </div>
+        <a href="/">文章</a>
+      
+        <a href="/archives/">归档</a>
+      
+        <a href="/categories/">分类</a>
+      
+        <a href="/tags/">标签</a>
+      
+        <a href="/about/">关于</a>
+      
+    </nav>
+    <a class="nav-ext" href="https://github.com/Nihaoa-ui" target="_blank" rel="noopener">GitHub ↗</a>
   </div>
-</div>
+</header>
 
-
-
-</div>
-
+  <main class="container">
+    <article class="post">
+  <header class="post-header">
+    <div class="kicker">
+      <span>学习笔记</span>
+      <span>2026-09-29</span>
+      <span>约 17 分钟</span>
+    </div>
+    <h1>Go 入门笔记：8 个我踩过的坑，每个都来自我写的校园失物招领后端</h1>
+    
   </header>
 
-  <main>
-    
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <h1 id="seo-header">Go 入门笔记：8 个我踩过的坑，每个都来自我写的校园失物招领后端</h1>
-            
-            
-              <div class="markdown-body">
-                
-                <p>我是数学系大一，社团大作业要做一套校园失物招领系统，我认领了后端。选 Go 的理由很功利：语法少、编译快、交叉编译出一条命令就能扔到服务器上跑，没有虚拟机也没有一堆依赖要装。</p>
+  <div class="prose">
+    <p>我是数学系大一，社团大作业要做一套校园失物招领系统，我认领了后端。选 Go 的理由很功利：语法少、编译快、交叉编译出一条命令就能扔到服务器上跑，没有虚拟机也没有一堆依赖要装。</p>
 <p>仓库第一天的样子是——所有接口、所有数据库操作，全堆在 <code>main.go</code> 里。两周后它变成了 <code>handler / service / repository</code> 分层的样子。这篇文章不打算复述 Go 的语法大全（那种文章已经太多了），我只写自己真正卡住过的地方，每个点都配上项目里的真实代码。贴之前我把密码和密钥都换成了占位符。</p>
 <span id="more"></span>
 
 <h2 id="一、-和-var：短变量声明不是”少打几个字”"><a href="#一、-和-var：短变量声明不是”少打几个字”" class="headerlink" title="一、:= 和 var：短变量声明不是”少打几个字”"></a>一、<code>:=</code> 和 <code>var</code>：短变量声明不是”少打几个字”</h2><p><code>:=</code> 是<strong>声明并赋值</strong>，不是赋值。所以同一作用域里不能对同一个变量用两次：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go">a := <span class="hljs-number">1</span><br>a := <span class="hljs-number">2</span>   <span class="hljs-comment">// 编译错误：no new variables on left side of :=</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a := <span class="number">1</span></span><br><span class="line">a := <span class="number">2</span>   <span class="comment">// 编译错误：no new variables on left side of :=</span></span><br></pre></td></tr></table></figure>
 
 <p>真正会咬人的是它在<strong>新作用域</strong>里的行为。<code>if</code>、<code>for</code>、函数体都会开新作用域，里面的 <code>:=</code> 会造一个<strong>同名的新变量</strong>，把外层的遮蔽掉——这个现象叫 variable shadowing：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> err <span class="hljs-type">error</span><br><span class="hljs-keyword">if</span> needCheck &#123;<br>    result, err := doSomething()   <span class="hljs-comment">// 这里的 err 是新变量，外层那个还是 nil</span><br>    _ = result<br>&#125;<br><span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;   <span class="hljs-comment">// 永远进不来</span><br>    <span class="hljs-comment">// ...</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> err <span class="type">error</span></span><br><span class="line"><span class="keyword">if</span> needCheck &#123;</span><br><span class="line">    result, err := doSomething()   <span class="comment">// 这里的 err 是新变量，外层那个还是 nil</span></span><br><span class="line">    _ = result</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;   <span class="comment">// 永远进不来</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>外层 <code>err</code> 从头到尾都是 nil，所以后面那个判断形同虚设，错误被静默吞掉。这种 bug 编译器不报错、运行时也不崩，只是行为不对——最难查的一类。我的习惯是：**如果外层已经有 <code>err</code> 了，里面就写 <code>var</code> 或者用 <code>=</code>，别用 <code>:=</code>**。</p>
-<h2 id="二、struct-tag：一个字段并排挂三套标签"><a href="#二、struct-tag：一个字段并排挂三套标签" class="headerlink" title="二、struct tag：一个字段并排挂三套标签"></a>二、struct tag：一个字段并排挂三套标签</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> LostItem <span class="hljs-keyword">struct</span> &#123;<br>	ID       <span class="hljs-type">uint</span>   <span class="hljs-string">`gorm:&quot;primaryKey&quot; json:&quot;id&quot;`</span><br>	Title    <span class="hljs-type">string</span> <span class="hljs-string">`json:&quot;title&quot; binding:&quot;required,notblank&quot;`</span><br>	Location <span class="hljs-type">string</span> <span class="hljs-string">`json:&quot;location&quot;`</span><br>	Desc     <span class="hljs-type">string</span> <span class="hljs-string">`json:&quot;desc&quot;`</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="二、struct-tag：一个字段并排挂三套标签"><a href="#二、struct-tag：一个字段并排挂三套标签" class="headerlink" title="二、struct tag：一个字段并排挂三套标签"></a>二、struct tag：一个字段并排挂三套标签</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> LostItem <span class="keyword">struct</span> &#123;</span><br><span class="line">	ID       <span class="type">uint</span>   <span class="string">`gorm:&quot;primaryKey&quot; json:&quot;id&quot;`</span></span><br><span class="line">	Title    <span class="type">string</span> <span class="string">`json:&quot;title&quot; binding:&quot;required,notblank&quot;`</span></span><br><span class="line">	Location <span class="type">string</span> <span class="string">`json:&quot;location&quot;`</span></span><br><span class="line">	Desc     <span class="type">string</span> <span class="string">`json:&quot;desc&quot;`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>反引号里那一串可以并排挂好几套 tag，各归各的解析器管：</p>
 <ul>
@@ -406,17 +66,17 @@
 <h3 id="一个真实的-bug：空格能大摇大摆绕过-required"><a href="#一个真实的-bug：空格能大摇大摆绕过-required" class="headerlink" title="一个真实的 bug：空格能大摇大摆绕过 required"></a>一个真实的 bug：空格能大摇大摆绕过 <code>required</code></h3><p>标题字段最初只写了 <code>binding:&quot;required&quot;</code>。队友测试时发现能提交一篇标题全是空格的帖子。</p>
 <p>原因：<code>required</code> 判断的是”是不是零值”。字符串的零值是 <code>&quot;&quot;</code>，而 <code>&quot; &quot;</code>（一个空格）长度是 1，在 <code>required</code> 眼里完全合法。后来加上 <code>notblank</code> 才好——它会先去掉两端的空白字符再判断有没有内容。</p>
 <p><strong>记住：<code>required</code> ≠ 非空字符串，它等于”不是零值”。</strong> 这个区别在字符串、切片、指针上都存在，语义各不相同。</p>
-<h2 id="三、map：取不存在的-key-不会报错，会返回零值"><a href="#三、map：取不存在的-key-不会报错，会返回零值" class="headerlink" title="三、map：取不存在的 key 不会报错，会返回零值"></a>三、map：取不存在的 key 不会报错，会返回零值</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">GetMsg</span><span class="hljs-params">(code <span class="hljs-type">int</span>)</span></span> <span class="hljs-type">string</span> &#123;<br>	<span class="hljs-keyword">if</span> msg, ok := messages[code]; ok &#123;<br>		<span class="hljs-keyword">return</span> msg<br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-string">&quot;未知错误&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="三、map：取不存在的-key-不会报错，会返回零值"><a href="#三、map：取不存在的-key-不会报错，会返回零值" class="headerlink" title="三、map：取不存在的 key 不会报错，会返回零值"></a>三、map：取不存在的 key 不会报错，会返回零值</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">GetMsg</span><span class="params">(code <span class="type">int</span>)</span></span> <span class="type">string</span> &#123;</span><br><span class="line">	<span class="keyword">if</span> msg, ok := messages[code]; ok &#123;</span><br><span class="line">		<span class="keyword">return</span> msg</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">&quot;未知错误&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>Go 的 map 设计上保证了 <code>m[k]</code> 永远不 panic。key 不存在时，返回<strong>值类型的零值</strong>——<code>map[int]string</code> 就是 <code>&quot;&quot;</code>，<code>map[string]int</code> 就是 <code>0</code>。</p>
 <p>麻烦的是你没法区分”这个 key 存的就是空字符串”和”这个 key 压根不存在”。所以要 <code>v, ok := m[k]</code> 这种双返回值写法。我的错误码表就是这么写的：查到返回对应消息，查不到返回”未知错误”；要是偷懒不判 <code>ok</code>，前端就会收到一个空的 <code>msg</code>，然后来问你为什么。</p>
 <p>还有个反直觉的点：<strong>map 的遍历顺序是随机的</strong>，每次 <code>for range</code> 都不一样，而且 Go 是故意这么设计的（防止有人依赖遍历顺序写出脆弱的代码）。需要顺序就自己排序。</p>
 <h2 id="四、any-和类型断言：装进去容易，取出来要自己说清楚"><a href="#四、any-和类型断言：装进去容易，取出来要自己说清楚" class="headerlink" title="四、any 和类型断言：装进去容易，取出来要自己说清楚"></a>四、<code>any</code> 和类型断言：装进去容易，取出来要自己说清楚</h2><p><code>any</code> 是 <code>interface&#123;&#125;</code> 的别名（Go 1.18 起），意思是”任意类型”。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Response <span class="hljs-keyword">struct</span> &#123;<br>	Code <span class="hljs-type">int</span>    <span class="hljs-string">`json:&quot;code&quot;`</span><br>	Msg  <span class="hljs-type">string</span> <span class="hljs-string">`json:&quot;msg&quot;`</span><br>	Data any    <span class="hljs-string">`json:&quot;data&quot;`</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Response <span class="keyword">struct</span> &#123;</span><br><span class="line">	Code <span class="type">int</span>    <span class="string">`json:&quot;code&quot;`</span></span><br><span class="line">	Msg  <span class="type">string</span> <span class="string">`json:&quot;msg&quot;`</span></span><br><span class="line">	Data any    <span class="string">`json:&quot;data&quot;`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><code>Data</code> 用 <code>any</code>，成功时塞业务数据、失败时塞 <code>nil</code>，一个结构体就能应付所有接口的响应格式。</p>
 <p>东西装进去是无痛的，取出来要<strong>类型断言</strong>：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs go">v, exist := c.Get(key)<br><span class="hljs-keyword">if</span> !exist &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>&#125;<br>id, ok := v.(*model.TokenInfo)<br><span class="hljs-keyword">if</span> !ok &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>&#125;<br><span class="hljs-keyword">return</span> id.UserID<br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">v, exist := c.Get(key)</span><br><span class="line"><span class="keyword">if</span> !exist &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line">id, ok := v.(*model.TokenInfo)</span><br><span class="line"><span class="keyword">if</span> !ok &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> id.UserID</span><br></pre></td></tr></table></figure>
 
 <p><code>v.(*model.TokenInfo)</code> 就是在说”我断定 v 里装的是 <code>*model.TokenInfo</code>“。两个细节：</p>
 <ol>
@@ -424,19 +84,19 @@
 <li>断言的目标类型必须和塞进去的<strong>完全一致</strong>。我塞的是指针，写成 <code>v.(model.TokenInfo)</code>（少了星号）就永远不成立，而且不报错，只是默默走失败分支。</li>
 </ol>
 <p>JWT 那边还有个更隐蔽的：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go">claims := token.Claims.(jwt.MapClaims)<br>rawUserID := claims[<span class="hljs-string">&quot;user_id&quot;</span>]<br>userID := <span class="hljs-type">uint</span>(rawUserID.(<span class="hljs-type">float64</span>))<br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">claims := token.Claims.(jwt.MapClaims)</span><br><span class="line">rawUserID := claims[<span class="string">&quot;user_id&quot;</span>]</span><br><span class="line">userID := <span class="type">uint</span>(rawUserID.(<span class="type">float64</span>))</span><br></pre></td></tr></table></figure>
 
 <p><code>claims[&quot;user_id&quot;]</code> 取出来是 <code>any</code>，实际类型是 <code>float64</code>——<strong>因为 JSON 里的数字统一解析成 float64</strong>。我明明签发的时候传的是 <code>uint</code>，取出来却是 <code>float64</code>，直接 <code>.(uint)</code> 会 panic。这个坑卡了我一阵子。</p>
 <p>顺便说，上面这两行其实还有改进空间：<code>token.Claims.(jwt.MapClaims)</code> 没做 <code>ok</code> 检查，理论上能 panic。写文章的时候回看才发现的。</p>
 <h2 id="五、函数是一等公民：中间件就是一个”返回函数的函数”"><a href="#五、函数是一等公民：中间件就是一个”返回函数的函数”" class="headerlink" title="五、函数是一等公民：中间件就是一个”返回函数的函数”"></a>五、函数是一等公民：中间件就是一个”返回函数的函数”</h2><p>这是我觉得 Go 最优雅的地方，也是 Gin 中间件的工作原理。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Auth</span><span class="hljs-params">()</span></span> gin.HandlerFunc &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(c *gin.Context)</span></span> &#123;<br>		header := c.GetHeader(<span class="hljs-string">&quot;Authorization&quot;</span>)<br>		<span class="hljs-keyword">if</span> !strings.HasPrefix(header, <span class="hljs-string">&quot;Bearer &quot;</span>) &#123;<br>			response.Fail(c, errcode.ErrUnauthorized)<br>			c.Abort()<br>			<span class="hljs-keyword">return</span><br>		&#125;<br>		info, err := service.ParseToken(header[<span class="hljs-number">7</span>:])<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			response.Fail(c, errcode.ErrUnauthorized)<br>			c.Abort()<br>			<span class="hljs-keyword">return</span><br>		&#125;<br>		c.Set(key, info)<br>		c.Next()<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Auth</span><span class="params">()</span></span> gin.HandlerFunc &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">		header := c.GetHeader(<span class="string">&quot;Authorization&quot;</span>)</span><br><span class="line">		<span class="keyword">if</span> !strings.HasPrefix(header, <span class="string">&quot;Bearer &quot;</span>) &#123;</span><br><span class="line">			response.Fail(c, errcode.ErrUnauthorized)</span><br><span class="line">			c.Abort()</span><br><span class="line">			<span class="keyword">return</span></span><br><span class="line">		&#125;</span><br><span class="line">		info, err := service.ParseToken(header[<span class="number">7</span>:])</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			response.Fail(c, errcode.ErrUnauthorized)</span><br><span class="line">			c.Abort()</span><br><span class="line">			<span class="keyword">return</span></span><br><span class="line">		&#125;</span><br><span class="line">		c.Set(key, info)</span><br><span class="line">		c.Next()</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><code>gin.HandlerFunc</code> 就是个函数类型，底层是 <code>func(*gin.Context)</code>。所以 <code>Auth</code> 这个函数”返回一个函数”完全合法——函数在 Go 里是普通值，能当参数传、能当返回值。</p>
 <p>那为什么要绕这一圈？为了<strong>带参数</strong>：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">RequireRole</span><span class="hljs-params">(roles ...<span class="hljs-type">string</span>)</span></span> gin.HandlerFunc &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(c *gin.Context)</span></span> &#123;<br>		info, ok := c.Get(key)<br>		<span class="hljs-comment">// ... 取 TokenInfo</span><br>		<span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> roles &#123;     <span class="hljs-comment">// roles 被&quot;记住&quot;了</span><br>			<span class="hljs-keyword">if</span> info.Role == v &#123;<br>				c.Next()<br>				<span class="hljs-keyword">return</span><br>			&#125;<br>		&#125;<br>		response.Fail(c, errcode.ErrForbidden)<br>		c.Abort()<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">RequireRole</span><span class="params">(roles ...<span class="type">string</span>)</span></span> gin.HandlerFunc &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">		info, ok := c.Get(key)</span><br><span class="line">		<span class="comment">// ... 取 TokenInfo</span></span><br><span class="line">		<span class="keyword">for</span> _, v := <span class="keyword">range</span> roles &#123;     <span class="comment">// roles 被&quot;记住&quot;了</span></span><br><span class="line">			<span class="keyword">if</span> info.Role == v &#123;</span><br><span class="line">				c.Next()</span><br><span class="line">				<span class="keyword">return</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		response.Fail(c, errcode.ErrForbidden)</span><br><span class="line">		c.Abort()</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><code>roles ...string</code> 是变参，返回的匿名函数<strong>捕获</strong>了传进来的 <code>roles</code>——这就是闭包。于是路由可以写得像自然语言：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go">r.GET(<span class="hljs-string">&quot;/api/admin/ping&quot;</span>,<br>	middleware.Auth(),<br>	middleware.RequireRole(model.RoleLostAdmin, model.RoleSysAdmin),<br>	handler.Ping)<br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">r.GET(<span class="string">&quot;/api/admin/ping&quot;</span>,</span><br><span class="line">	middleware.Auth(),</span><br><span class="line">	middleware.RequireRole(model.RoleLostAdmin, model.RoleSysAdmin),</span><br><span class="line">	handler.Ping)</span><br></pre></td></tr></table></figure>
 
 <p>注意 <code>middleware.Auth()</code> 后面<strong>有括号</strong>：被调用后返回的那个函数才是真正的中间件。这个理解一旦通了，Gin 中间件就不再神秘。</p>
 <p>还有两个必须记住的：</p>
@@ -445,20 +105,20 @@
 <li><code>for _, v := range roles</code> 里的第一个值是下标，用不上就用 <code>_</code> 丢掉。Go 不允许声明了不用的变量。</li>
 </ul>
 <h2 id="六、错误是值，不是异常"><a href="#六、错误是值，不是异常" class="headerlink" title="六、错误是值，不是异常"></a>六、错误是值，不是异常</h2><p>Go 没有 try&#x2F;catch。错误就是一个普通的返回值，<code>error</code> 是个内置接口。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> ErrUserExists = errors.New(<span class="hljs-string">&quot;用户已存在&quot;</span>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">RegisterUser</span><span class="hljs-params">(username, password <span class="hljs-type">string</span>)</span></span> (*model.User, <span class="hljs-type">error</span>) &#123;<br>	hashed, err := bcrypt.GenerateFromPassword([]<span class="hljs-type">byte</span>(password), bcrypt.DefaultCost)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err<br>	&#125;<br>	user := &amp;model.User&#123;Username: username, Password: <span class="hljs-type">string</span>(hashed), Role: model.RoleUser&#125;<br><br>	err = repository.CreateUser(user)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">if</span> strings.Contains(err.Error(), <span class="hljs-string">&quot;Duplicate entry&quot;</span>) &#123;<br>			<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, ErrUserExists<br>		&#125;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err<br>	&#125;<br>	<span class="hljs-keyword">return</span> user, <span class="hljs-literal">nil</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ErrUserExists = errors.New(<span class="string">&quot;用户已存在&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">RegisterUser</span><span class="params">(username, password <span class="type">string</span>)</span></span> (*model.User, <span class="type">error</span>) &#123;</span><br><span class="line">	hashed, err := bcrypt.GenerateFromPassword([]<span class="type">byte</span>(password), bcrypt.DefaultCost)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">	&#125;</span><br><span class="line">	user := &amp;model.User&#123;Username: username, Password: <span class="type">string</span>(hashed), Role: model.RoleUser&#125;</span><br><span class="line"></span><br><span class="line">	err = repository.CreateUser(user)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> strings.Contains(err.Error(), <span class="string">&quot;Duplicate entry&quot;</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">nil</span>, ErrUserExists</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> user, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>三个值得说的习惯：</p>
 <p><strong>1. <code>if err != nil</code> 之后立刻 return。</strong> 这个模式会重复很多遍，看着啰嗦；但换来的是错误路径一目了然——你不用去猜哪一行可能抛异常，只要看 <code>err</code> 有没有被检查。</p>
 <p><strong>2. 用 <code>errors.New</code> 定义”哨兵错误”，调用方用 <code>errors.Is</code> 判断。</strong></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go">user, err := repository.FindByUsername(username)<br><span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>	<span class="hljs-keyword">if</span> errors.Is(err, gorm.ErrRecordNotFound) &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, ErrInvalidCredentials<br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">user, err := repository.FindByUsername(username)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">	<span class="keyword">if</span> errors.Is(err, gorm.ErrRecordNotFound) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span>, ErrInvalidCredentials</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这里有个小心思：用户不存在和密码错误，返回的是<strong>同一个错误</strong>。这是故意的——如果分开返回，别人就能把登录接口当用户枚举器用，一个个试出哪些用户名已经注册。这叫<strong>用户枚举防护</strong>。</p>
 <p><strong>3. 在边界层做错误翻译。</strong> <code>strings.Contains(err.Error(), &quot;Duplicate entry&quot;)</code> 这行有点丑，它是去匹配 MySQL 的原始报错文本；但唯一约束在数据库层面，这是最直接的做法。重点在于<strong>别让数据库的报错原文漏给前端</strong>，翻译成 <code>ErrUserExists</code> 再说。</p>
 <p>最后一个坑：**<code>error</code> 是接口，接口可能是 nil，但”装了 nil 指针的接口”不等于 nil。**</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">f</span><span class="hljs-params">()</span></span> <span class="hljs-type">error</span> &#123;<br>	<span class="hljs-keyword">var</span> p *MyErr = <span class="hljs-literal">nil</span><br>	<span class="hljs-keyword">return</span> p      <span class="hljs-comment">// 返回值不是 nil！</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">f</span><span class="params">()</span></span> <span class="type">error</span> &#123;</span><br><span class="line">	<span class="keyword">var</span> p *MyErr = <span class="literal">nil</span></span><br><span class="line">	<span class="keyword">return</span> p      <span class="comment">// 返回值不是 nil！</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>函数返回 <code>(*User, error)</code> 这种组合时要特别小心，别在这种地方让调用方判断失误。</p>
-<h2 id="七、defer：拿到资源的那一行就写好怎么收尾"><a href="#七、defer：拿到资源的那一行就写好怎么收尾" class="headerlink" title="七、defer：拿到资源的那一行就写好怎么收尾"></a>七、<code>defer</code>：拿到资源的那一行就写好怎么收尾</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go">opened, err := fh.Open()<br><span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>, err<br>&#125;<br><span class="hljs-keyword">defer</span> opened.Close()<br><br>f, err := os.Create(filepath.Join(uploadDir, photo))<br><span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>, err<br>&#125;<br><span class="hljs-keyword">defer</span> f.Close()<br><br>_, err = io.Copy(f, opened)<br></code></pre></td></tr></table></figure>
+<h2 id="七、defer：拿到资源的那一行就写好怎么收尾"><a href="#七、defer：拿到资源的那一行就写好怎么收尾" class="headerlink" title="七、defer：拿到资源的那一行就写好怎么收尾"></a>七、<code>defer</code>：拿到资源的那一行就写好怎么收尾</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">opened, err := fh.Open()</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">&quot;&quot;</span>, err</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">defer</span> opened.Close()</span><br><span class="line"></span><br><span class="line">f, err := os.Create(filepath.Join(uploadDir, photo))</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">&quot;&quot;</span>, err</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">defer</span> f.Close()</span><br><span class="line"></span><br><span class="line">_, err = io.Copy(f, opened)</span><br></pre></td></tr></table></figure>
 
 <p><code>defer</code> 的语义是”函数返回<strong>之前</strong>执行”，不管是正常 return 还是中途 return。上面这段如果不用 <code>defer</code>，得在四个出错分支里各写一次 <code>Close</code>，漏一个就泄漏一个文件句柄。</p>
 <p>两个小知识：</p>
@@ -467,7 +127,7 @@
 <li><code>defer</code> 后面函数的<strong>参数在注册那一刻就求值了</strong>，不是执行时才求值。所以 <code>defer f(x)</code> 里的 <code>x</code> 是当时的 <code>x</code>。</li>
 </ul>
 <h2 id="八、包和目录：internal-是编译器帮你守的门"><a href="#八、包和目录：internal-是编译器帮你守的门" class="headerlink" title="八、包和目录：internal 是编译器帮你守的门"></a>八、包和目录：<code>internal</code> 是编译器帮你守的门</h2><p>最后说点代码之外的。</p>
-<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs nix">gin-demo<span class="hljs-symbol">/</span><br>├── main.go<br>├── internal<span class="hljs-symbol">/</span>          <span class="hljs-comment"># 只有本项目能 import</span><br>│   ├── handler<span class="hljs-symbol">/</span>       <span class="hljs-comment"># 收请求、校验参数、调 service</span><br>│   ├── service<span class="hljs-symbol">/</span>       <span class="hljs-comment"># 业务逻辑（哈希、判重、签发 token）</span><br>│   ├── repository<span class="hljs-symbol">/</span>    <span class="hljs-comment"># 只管数据库读写</span><br>│   └── model<span class="hljs-symbol">/</span>         <span class="hljs-comment"># 结构体定义</span><br>└── pkg<span class="hljs-symbol">/</span>               <span class="hljs-comment"># 可以被别的项目 import</span><br>    ├── config<span class="hljs-symbol">/</span>        <span class="hljs-comment"># 读环境变量</span><br>    ├── errcode<span class="hljs-symbol">/</span>       <span class="hljs-comment"># 错误码</span><br>    └── response<span class="hljs-symbol">/</span>      <span class="hljs-comment"># 统一响应格式</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">gin-demo<span class="symbol">/</span></span><br><span class="line">├── main.go</span><br><span class="line">├── internal<span class="symbol">/</span>          <span class="comment"># 只有本项目能 import</span></span><br><span class="line">│   ├── handler<span class="symbol">/</span>       <span class="comment"># 收请求、校验参数、调 service</span></span><br><span class="line">│   ├── service<span class="symbol">/</span>       <span class="comment"># 业务逻辑（哈希、判重、签发 token）</span></span><br><span class="line">│   ├── repository<span class="symbol">/</span>    <span class="comment"># 只管数据库读写</span></span><br><span class="line">│   └── model<span class="symbol">/</span>         <span class="comment"># 结构体定义</span></span><br><span class="line">└── pkg<span class="symbol">/</span>               <span class="comment"># 可以被别的项目 import</span></span><br><span class="line">    ├── config<span class="symbol">/</span>        <span class="comment"># 读环境变量</span></span><br><span class="line">    ├── errcode<span class="symbol">/</span>       <span class="comment"># 错误码</span></span><br><span class="line">    └── response<span class="symbol">/</span>      <span class="comment"># 统一响应格式</span></span><br></pre></td></tr></table></figure>
 
 <p>几条规则：</p>
 <p><strong>大写开头才能被别的包访问。</strong> <code>func SavePhoto</code> 能被 handler 调，写成 <code>savePhoto</code> 就只有 service 包内部能用。这是 Go 唯一的作用域机制——没有 <code>public</code>&#x2F;<code>private</code> 关键字，看首字母大小写就够了。</p>
@@ -480,445 +140,37 @@
 <li><strong>代码之外的工程习惯</strong>——别硬编码密钥、分层、拿到资源立刻 defer。</li>
 </ul>
 <p>哦对，说到硬编码密钥。最开始我的数据库密码就直接写在 <code>main.go</code> 的字符串里。私有仓库看着没事，可一旦要发文章、截图、开源，密码就跟着飞出去了。JWT 密钥更危险——它泄露了，任何人都能伪造别人的身份登录。后来我抽了个 config 包，先把密钥挪了进去：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">getEnv</span><span class="hljs-params">(key <span class="hljs-type">string</span>, fallback <span class="hljs-type">string</span>)</span></span> <span class="hljs-type">string</span> &#123;<br>	value := os.Getenv(key)<br>	<span class="hljs-keyword">if</span> value == <span class="hljs-string">&quot;&quot;</span> &#123;<br>		<span class="hljs-keyword">return</span> fallback<br>	&#125;<br>	<span class="hljs-keyword">return</span> value<br>&#125;<br><br><span class="hljs-keyword">var</span> JWTSecret = getEnv(<span class="hljs-string">&quot;JWT_SECRET&quot;</span>, <span class="hljs-string">&quot;&quot;</span>)<br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">getEnv</span><span class="params">(key <span class="type">string</span>, fallback <span class="type">string</span>)</span></span> <span class="type">string</span> &#123;</span><br><span class="line">	value := os.Getenv(key)</span><br><span class="line">	<span class="keyword">if</span> value == <span class="string">&quot;&quot;</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> fallback</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> value</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> JWTSecret = getEnv(<span class="string">&quot;JWT_SECRET&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br></pre></td></tr></table></figure>
 
 <p>默认值给空串，逼自己必须在环境变量里配。</p>
 <p>（说来惭愧，数据库那串 DSN 现在还原封不动躺在 <code>main.go</code> 里没搬完——写这篇文章正好提醒了我，回去就补上。<strong>另外，这篇文章贴出来之前我逐段检查过，确认没有真实密码和密钥漏出去。</strong>）</p>
 <p>如果你也在从零上手 Go 后端，我的建议是：别先啃完语法书再动手。直接写一个你真正要用的东西——只有三个接口的 CRUD 也行——卡住了再去查。踩过的坑才会真的记住。</p>
 
-                
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/Go/" class="print-no-link">#Go</a>
-      
-        <a href="/tags/%E5%90%8E%E7%AB%AF/" class="print-no-link">#后端</a>
-      
-        <a href="/tags/Gin/" class="print-no-link">#Gin</a>
-      
-    </div>
-  
-</div>
-
-
-              
-  
-
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>Go 入门笔记：8 个我踩过的坑，每个都来自我写的校园失物招领后端</div>
-      <div>https://nihaoa-ui.github.io/2026/09/29/go-basics-notes/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>作者</div>
-          <div>小董</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2026年9月29日</div>
-        </div>
-      
-      
-      
-        <div class="license-meta-item">
-          <div>许可协议</div>
-          <div>
-            
-              
-              
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                    <i class="iconfont icon-cc-by"></i>
-                  </span>
-                </a>
-              
-            
-          </div>
-        </div>
-      
-    </div>
-    <div class="license-icon iconfont"></div>
   </div>
 
-
-
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2026/10/18/newcomputer-first-note/" title="转到新电脑的第一篇文章">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">转到新电脑的第一篇文章</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2026/09/06/%E6%88%91%E7%9A%84%E6%90%AD%E5%BB%BA%E7%BB%8F%E5%8E%86/" title="我的搭建经历">
-                        <span class="hidden-mobile">我的搭建经历</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-          </article>
-        </div>
-      </div>
+  
+    <div class="post-tags">
+      <a href="/tags/Go/">#Go</a><a href="/tags/%E5%90%8E%E7%AB%AF/">#后端</a><a href="/tags/Gin/">#Gin</a>
     </div>
-
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header">
-    <i class="iconfont icon-list"></i>
-    <span>目录</span>
-  </p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-
-
-  </aside>
-
-
-    </div>
-  </div>
-</div>
-
-
-
-
-
   
 
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-
-
-
-
+  <nav class="post-nav">
     
+      <a class="prev" href="/2026/10/18/newcomputer-first-note/"><span>上一篇</span>转到新电脑的第一篇文章</a>
+    
+    
+      <a class="next" href="/2026/09/06/%E6%88%91%E7%9A%84%E6%90%AD%E5%BB%BA%E7%BB%8F%E5%8E%86/"><span>下一篇</span>我的搭建经历</a>
+    
+  </nav>
+</article>
 
-    
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-    
-
-    
   </main>
+  <footer class="footer">
+  <div class="container footer-inner">
+    <span>© 2026 小董</span>
+    <span>Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a></span>
+  </div>
+</footer>
 
-  <footer>
-    <div class="footer-inner">
-  
-    <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-    </div>
-  
-  
-  
-</div>
-
-  </footer>
-
-  <!-- Scripts -->
-  
-  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
-<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
-
-
-
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
-    var toc = jQuery('#toc');
-    if (toc.length === 0 || !window.tocbot) { return; }
-    var boardCtn = jQuery('#board-ctn');
-    var boardTop = boardCtn.offset().top;
-
-    function isExpandAllEnabled() {
-      return CONFIG.toc && CONFIG.toc.expand_all === true;
-    }
-    function expandAllToc() {
-      if (!isExpandAllEnabled()) { return; }
-      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
-    }
-    function updateTocToggle($li, $childList) {
-      var $toggle = $li.children('.toc-toggle');
-      if ($toggle.length === 0) { return; }
-      var collapsed = $childList.hasClass('tocbot-is-collapsed');
-      $toggle
-        .toggleClass('toc-toggle-collapsed', collapsed)
-        .toggleClass('toc-toggle-expanded', !collapsed);
-    }
-    function bindTocToggle() {
-      if (!isExpandAllEnabled()) { return; }
-      jQuery('#toc-body .toc-list-item').each(function() {
-        var $li = jQuery(this);
-        var $childList = $li.children('ol');
-        if ($childList.length === 0) {
-          if ($li.children('.toc-toggle').length === 0) {
-            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
-          }
-          return;
-        }
-
-        if ($li.children('.toc-toggle').length === 0) {
-          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
-        }
-        updateTocToggle($li, $childList);
-      });
-      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        var $li = jQuery(this).parent('.toc-list-item');
-        var $childList = $li.children('ol');
-        if ($childList.length === 0) { return; }
-        $childList.toggleClass('tocbot-is-collapsed');
-        updateTocToggle($li, $childList);
-      });
-      if (!window.__tocToggleObserver) {
-        window.__tocToggleObserver = new MutationObserver(function(mutations) {
-          mutations.forEach(function(mutation) {
-            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
-            var $list = jQuery(mutation.target);
-            var $li = $list.parent('.toc-list-item');
-            if ($li.length === 0) { return; }
-            updateTocToggle($li, $list);
-          });
-        });
-        jQuery('#toc-body ol').each(function() {
-          window.__tocToggleObserver.observe(this, { attributes: true });
-        });
-      }
-    }
-    var tocConfig = Object.assign({
-      tocSelector     : '#toc-body',
-      contentSelector : '.markdown-body',
-      linkClass       : 'tocbot-link',
-      activeLinkClass : 'tocbot-active-link',
-      listClass       : 'tocbot-list',
-      isCollapsedClass: 'tocbot-is-collapsed',
-      collapsibleClass: 'tocbot-is-collapsible',
-      scrollSmooth    : true,
-      includeTitleTags: true,
-      headingsOffset  : -boardTop,
-    }, CONFIG.toc);
-    if (isExpandAllEnabled()) {
-      tocConfig.collapseDepth = 6;
-    }
-    window.tocbot.init(tocConfig);
-    if (toc.find('.toc-list-item').length > 0) {
-      toc.css('visibility', 'visible');
-    }
-    expandAllToc();
-    bindTocToggle();
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('tocbot' in window) {
-        tocbot.refresh();
-        var toc = jQuery('#toc');
-        if (toc.length === 0 || !tocbot) {
-          return;
-        }
-        if (toc.find('.toc-list-item').length > 0) {
-          toc.css('visibility', 'visible');
-        }
-        expandAllToc();
-        bindTocToggle();
-      }
-    });
-  });
-</script>
-
-
-  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
-
-  <script>Fluid.plugins.codeWidget();</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
-    window.anchors.options = {
-      placement: CONFIG.anchorjs.placement,
-      visible  : CONFIG.anchorjs.visible
-    };
-    if (CONFIG.anchorjs.icon) {
-      window.anchors.options.icon = CONFIG.anchorjs.icon;
-    }
-    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-    var res = [];
-    for (var item of el) {
-      res.push('.markdown-body > ' + item.trim());
-    }
-    if (CONFIG.anchorjs.placement === 'left') {
-      window.anchors.options.class = 'anchorjs-link-left';
-    }
-    window.anchors.add(res.join(', '));
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('anchors' in window) {
-        anchors.removeAll();
-        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-        var res = [];
-        for (var item of el) {
-          res.push('.markdown-body > ' + item.trim());
-        }
-        if (CONFIG.anchorjs.placement === 'left') {
-          anchors.options.class = 'anchorjs-link-left';
-        }
-        anchors.add(res.join(', '));
-      }
-    });
-  });
-</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
-    Fluid.plugins.fancyBox();
-  });
-</script>
-
-
-  <script>Fluid.plugins.imageCaption();</script>
-
-  <script  src="/js/local-search.js" ></script>
-
-
-
-
-
-<!-- 主题的启动项，将它保持在最底部 -->
-<!-- the boot of the theme, keep it at the bottom -->
-<script  src="/js/boot.js" ></script>
-
-
-  
-
-  <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
-  </noscript>
 </body>
 </html>
