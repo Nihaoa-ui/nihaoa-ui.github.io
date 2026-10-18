@@ -15,3 +15,10 @@ hexo.extend.helper.register('plain_excerpt', function (post, len) {
 hexo.extend.helper.register('first_category', function (post) {
   return post.categories && post.categories.length ? post.categories.first().name : '随笔';
 });
+
+
+hexo.extend.helper.register('site_age', function () {
+  var since = hexo.config.since ? new Date(hexo.config.since) : new Date('2026-09-06');
+  var days = Math.floor((Date.now() - since.getTime()) / 86400000) + 1;
+  return days > 0 ? days : 1;
+});
