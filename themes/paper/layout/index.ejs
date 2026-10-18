@@ -1,47 +1,92 @@
 <% var posts = page.posts.toArray(); %>
 <% var featured = posts.find(function (p) { return p.featured; }) || posts[0]; %>
 <% var rest = posts.filter(function (p) { return p !== featured; }); %>
+<% var pad = function (n) { return String(n).padStart(2, '0'); }; %>
 
-<% if (featured) { %>
-<section class="feature">
-  <div class="kicker">
-    <span><%= first_category(featured) %></span>
-    <span><%= date(featured.date, 'YYYY-MM-DD') %></span>
-    <span class="kicker-latest"><%= featured.featured ? '精选' : '最新' %></span>
-  </div>
-  <h1 class="feature-title"><a href="<%- url_for(featured.path) %>"><%= featured.title %></a></h1>
-  <p class="lede"><%= plain_excerpt(featured, 130) %></p>
-  <div class="meta">
-    <span>约 <%= reading_time(featured) %> 分钟</span>
-    <% featured.tags.each(function (tag) { %><span class="hash">#<%= tag.name %></span><% }) %>
-  </div>
+<section class="preface">
+  <div class="preface-label">卷首 · PREFACE</div>
+  <p class="preface-text">数学系大一，在写 Go 后端。这里放踩过的坑、搭过的东西，和一些还没想明白的问题。</p>
 </section>
-<% } %>
 
-<section class="section">
-  <div class="section-head">
-    <h2>近期文章</h2>
-    <a class="more" href="<%- url_for('/archives/') %>">全部 <%= site.posts.length %> 篇 →</a>
-  </div>
-
-  <ul class="post-list">
-    <% rest.forEach(function (post) { %>
-      <li class="post-item">
-        <div class="post-date"><%= date(post.date, 'MM-DD') %><em><%= date(post.date, 'YYYY') %></em></div>
-        <div class="post-body">
-          <div class="post-cat"><%= first_category(post) %></div>
-          <h3><a href="<%- url_for(post.path) %>"><%= post.title %></a></h3>
-          <p><%= plain_excerpt(post, 90) %></p>
-        </div>
-      </li>
-    <% }) %>
-  </ul>
-
-  <% if (page.total > 1) { %>
-    <div class="pager">
-      <% if (page.prev_link) { %><a href="<%- url_for(page.prev_link) %>">← 新一点</a><% } %>
-      <span><%= page.current %> / <%= page.total %></span>
-      <% if (page.next_link) { %><a href="<%- url_for(page.next_link) %>">旧一点 →</a><% } %>
+<div class="home-grid">
+  <section class="notes">
+    <div class="section-head">
+      <h2>近作</h2>
+      <span class="section-note">共 <%= site.posts.length %> 篇</span>
     </div>
-  <% } %>
-</section>
+
+    <div class="card-grid">
+      <% if (featured) { %>
+        <article class="card card-feature">
+          <div class="card-meta">
+            <span class="no">01</span>
+            <span><%= date(featured.date, 'YYYY-MM-DD') %></span>
+            <span><%= first_category(featured) %></span>
+            <span class="card-latest">最新</span>
+          </div>
+          <h3 class="card-title"><a href="<%- url_for(featured.path) %>"><%= featured.title %></a></h3>
+          <p class="card-excerpt"><%= plain_excerpt(featured, 150) %></p>
+          <div class="card-foot">
+            <span>约 <%= reading_time(featured) %> 分钟</span>
+            <% featured.tags.each(function (tag) { %><span class="hash">#<%= tag.name %></span><% }) %>
+          </div>
+        </article>
+      <% } %>
+
+      <% rest.forEach(function (post, i) { %>
+        <article class="card">
+          <div class="card-meta">
+            <span class="no"><%= pad(i + 2) %></span>
+            <span><%= date(post.date, 'MM-DD') %></span>
+            <span><%= first_category(post) %></span>
+          </div>
+          <h3 class="card-title"><a href="<%- url_for(post.path) %>"><%= post.title %></a></h3>
+          <p class="card-excerpt"><%= plain_excerpt(post, 80) %></p>
+          <div class="card-foot">
+            <span>约 <%= reading_time(post) %> 分钟</span>
+            <% post.tags.each(function (tag) { %><span class="hash">#<%= tag.name %></span><% }) %>
+          </div>
+        </article>
+      <% }) %>
+    </div>
+
+    <% if (page.total > 1) { %>
+      <div class="pager">
+        <% if (page.prev_link) { %><a href="<%- url_for(page.prev_link) %>">← 新一点</a><% } %>
+        <span><%= page.current %> / <%= page.total %></span>
+        <% if (page.next_link) { %><a href="<%- url_for(page.next_link) %>">旧一点 →</a><% } %>
+      </div>
+    <% } %>
+  </section>
+
+  <aside class="side">
+    <section class="side-block">
+      <h4>分类索引</h4>
+      <ul class="side-list">
+        <% site.categories.sort('name').each(function (cat) { %>
+          <li><a href="<%- url_for(cat.path) %>"><span><%= cat.name %></span><em><%= cat.length %></em></a></li>
+        <% }) %>
+      </ul>
+    </section>
+
+    <section class="side-block">
+      <h4>标签</h4>
+      <div class="side-tags">
+        <% site.tags.sort('name').each(function (tag) { %>
+          <a href="<%- url_for(tag.path) %>">#<%= tag.name %></a>
+        <% }) %>
+      </div>
+    </section>
+
+    <section class="side-block">
+      <h4>关于</h4>
+      <p class="side-text">数学系大一，社团项目里认领了后端。文章里的密钥都换过。</p>
+      <a class="side-more" href="<%- url_for('/about/') %>">关于我 →</a>
+    </section>
+
+    <section class="side-block">
+      <h4>存档</h4>
+      <a class="side-more" href="<%- url_for('/archives/') %>">全部 <%= site.posts.length %> 篇 →</a>
+    </section>
+  </aside>
+</div>

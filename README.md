@@ -1,10 +1,10 @@
-# 小董的博客 · 本地源码
+# 风尽起长歌 · 本地源码
 
-这是从线上 `https://nihaoa-ui.github.io` 反向还原出来的 Hexo 源码。
+站点标题：**风尽起长歌**。源码最初从线上 `https://nihaoa-ui.github.io` 反向还原，现已换成自建的「索引卡」版式。
 生成结果已与线上逐字节比对：首页、4 篇文章、归档/分类/标签/友链页、404、搜索索引全部一致。
 
 - Hexo `7.3.0`
-- 主题：自建 `themes/paper`（纸感排版；Fluid `1.9.9` 仍装着，把 `_config.yml` 的 `theme` 改成 `fluid` 可切回）
+- 主题：自建 `themes/paper`（索引卡 / 卷首版式；Fluid `1.9.9` 仍装着，把 `_config.yml` 的 `theme` 改成 `fluid` 可切回）
 - 时区 `Asia/Shanghai`
 - 部署目标：`https://github.com/Nihaoa-ui/nihaoa-ui.github.io.git` 的 `main` 分支
 

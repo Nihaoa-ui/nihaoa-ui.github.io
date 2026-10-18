@@ -6,7 +6,10 @@ hexo.extend.helper.register('reading_time', function (post) {
 hexo.extend.helper.register('plain_excerpt', function (post, len) {
   var text = (post.excerpt || post.content || '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
   if (text.length <= len) return text;
-  return text.slice(0, len) + '…';
+  var cut = text.slice(0, len);
+  var m = cut.match(/^[\s\S]*[。！？；，,;：]/);
+  if (m && m[0].length > len * 0.6) cut = m[0].replace(/[，,；;：:]$/, '');
+  return cut + '…';
 });
 
 hexo.extend.helper.register('first_category', function (post) {
