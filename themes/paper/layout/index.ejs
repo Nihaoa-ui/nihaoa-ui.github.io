@@ -2,7 +2,7 @@
   <div class="hero-inner container">
     <div class="hero-kicker">NOTES · SINCE 2026</div>
     <h1 class="hero-title"><%= config.title %></h1>
-    <p class="hero-sub"><%= config.description %></p>
+    <p class="hero-sub"><%= config.hero_sub || config.description %></p>
     <div class="hero-meta">
       <span><%= site.posts.length %> 篇</span>
       <span><%= site.categories.length %> 个分类</span>
