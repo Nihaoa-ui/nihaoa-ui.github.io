@@ -1140,3 +1140,64 @@ body { background-color: #ece3d2; overflow-x: hidden; }
   .page-wrap { padding-top: 40px; }
   .hero-page .hero-post-inner { min-height: 28vh; }
 }
+
+/* ============================================================
+   v4 · 楷体、问候、纸屑、建站天数
+   ============================================================ */
+
+:root {
+  --serif: "Kaiti SC", "STKaiti", "KaiTi", "楷体", "Songti SC", serif;
+}
+
+body {
+  font-size: 18px;
+  line-height: 1.95;
+  letter-spacing: 0.01em;
+}
+
+.hero-hello {
+  margin: 0 0 10px;
+  font-family: var(--serif);
+  font-size: 17px;
+  letter-spacing: 0.18em;
+  color: #b7a58c;
+}
+
+.hero { position: relative; }
+.hero-inner { position: relative; z-index: 2; }
+.hero-wave { z-index: 1; }
+
+.hero-dust {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-dust span {
+  position: absolute;
+  border-radius: 50%;
+  background: #efe4cf;
+  animation-name: dust-drift;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+@keyframes dust-drift {
+  0%   { transform: translate3d(0, 8px, 0); }
+  50%  { transform: translate3d(7px, -14px, 0); }
+  100% { transform: translate3d(0, 8px, 0); }
+}
+
+.footer-inner em {
+  font-style: normal;
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 11px;
+  margin: 0 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-dust { display: none; }
+}
