@@ -50,12 +50,16 @@ Fluid 还支持 `math: true`（公式）、`mermaid: true`（流程图）、`sti
 ./hexo server        # http://localhost:4000
 ```
 
-## 发布（需要先登录 GitHub）
+## 发布
 
 ```bash
-gh auth login          # 第一次：GitHub.com → HTTPS → 浏览器登录
-gh auth setup-git      # 让 git 用 gh 的凭据
 ./hexo clean && ./hexo generate && ./hexo deploy
+```
+
+这台 Mac 的 GitHub 凭据已经存在钥匙串里，可以直接推；如果哪天提示认证失败，再跑：
+
+```bash
+gh auth login && gh auth setup-git
 ```
 
 发布是整站覆盖：`main` 分支会被 `public/` 的内容强制替换。
@@ -64,13 +68,10 @@ Hexo 项目里发布——两边会互相覆盖，以后统一在这台机器上
 
 ## 备份源码
 
-本地仓库已经初始化好：分支 `source`，remote `origin` 指向同一个 GitHub 仓库。
-只差推送（和发布一样，需要先登录）：
+`source` 分支已经推到 GitHub，源码有备份了。以后写完文章：
 
 ```bash
-gh auth login && gh auth setup-git
-git push -u origin source
+git add . && git commit -m "post: xxx" && git push
 ```
 
-源码放在 `source` 分支，页面仍在 `main` 分支，互不影响。
-以后写完文章顺手 `git add . && git commit -m "post: xxx" && git push` 即可。
+源码在 `source` 分支，页面在 `main` 分支，互不影响。换电脑时 `git clone -b source` 就能找回全部源码。
