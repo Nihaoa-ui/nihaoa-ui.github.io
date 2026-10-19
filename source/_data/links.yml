@@ -2,7 +2,7 @@
 # avatar 可以留空，会自动用名字首字做头像
 - name: FicrousWAY
   url: https://www.ficrousway.top/
-  desc: 组长的博客，Hexo + Shoka，记录折腾
+  desc: 椰子鸡的blog，Hexo + Shoka，记录折腾
   avatar: ""
 
 # - name: 某某
