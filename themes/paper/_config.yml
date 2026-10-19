@@ -7,5 +7,7 @@ menu:
     url: /categories/
   - name: 标签
     url: /tags/
+  - name: 友链
+    url: /links/
   - name: 关于
     url: /about/

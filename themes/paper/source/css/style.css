@@ -1201,3 +1201,135 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .hero-dust { display: none; }
 }
+
+/* ============================================================
+   v5 · 友链
+   ============================================================ */
+
+.links-intro {
+  max-width: 620px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.9;
+  margin-bottom: 8px;
+}
+
+.friend-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin: 30px 0 56px;
+}
+
+.friend-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 24px 22px;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.friend-card:hover {
+  transform: translateY(-3px);
+  border-color: #bfae95;
+  box-shadow: 0 12px 26px rgba(60, 45, 25, 0.08);
+}
+
+.friend-index {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--faint);
+}
+
+.friend-avatar {
+  flex: 0 0 52px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #2b241b, #6a5540);
+  color: #f8f3e8;
+  font-family: var(--serif);
+  font-size: 22px;
+  overflow: hidden;
+}
+
+.friend-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.friend-main {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.friend-main strong { font-size: 19px; line-height: 1.4; }
+
+.friend-main em {
+  font-style: normal;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.friend-main small {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.03em;
+  color: var(--faint);
+}
+
+.friend-arrow {
+  margin-left: auto;
+  padding-left: 12px;
+  font-size: 18px;
+  color: var(--accent);
+}
+
+.friend-empty {
+  border-style: dashed;
+  background: transparent;
+  box-shadow: none;
+}
+
+.friend-empty .friend-avatar {
+  background: transparent;
+  border: 1px dashed var(--rule);
+  color: var(--faint);
+  font-size: 24px;
+}
+
+.friend-note {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  padding-top: 22px;
+  border-top: 1px solid var(--ink);
+}
+
+.friend-note h3 {
+  margin: 0 0 10px;
+  font-size: 17px;
+  letter-spacing: 0.06em;
+}
+
+.friend-note p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.9;
+  color: var(--muted);
+}
+
+.friend-note a { color: var(--accent); border-bottom: 1px solid rgba(163, 59, 44, 0.3); }
+
+@media (max-width: 720px) {
+  .friend-grid { grid-template-columns: 1fr; }
+  .friend-note { grid-template-columns: 1fr; gap: 24px; }
+}

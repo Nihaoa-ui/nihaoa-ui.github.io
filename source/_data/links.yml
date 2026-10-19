@@ -1,0 +1,11 @@
+# 友链列表：想加谁，就照着抄一段
+# avatar 可以留空，会自动用名字首字做头像
+- name: FicrousWAY
+  url: https://www.ficrousway.top/
+  desc: 组长的博客，Hexo + Shoka，记录折腾
+  avatar: ""
+
+# - name: 某某
+#   url: https://example.com/
+#   desc: 一句话介绍
+#   avatar: ""
