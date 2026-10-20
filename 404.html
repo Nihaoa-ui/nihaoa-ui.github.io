@@ -6,6 +6,13 @@
   <title>404 · 不吃香菜</title>
   <meta name="description" content="记踩过的坑、搭过的东西，和没想明白的问题。">
   <link rel="icon" href="/img/favicon.png">
+  <script>
+    (function () {
+      var saved = localStorage.getItem('theme');
+      var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.dataset.theme = theme;
+    })();
+  </script>
   <link rel="stylesheet" href="/css/plain.css">
 <meta name="generator" content="Hexo 7.3.0"></head>
 
@@ -27,9 +34,11 @@
       
         <a href="/about/">关于</a>
       
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="切换明暗">◐</button>
     </nav>
   </div>
 </header>
+<div class="progress" id="progress"></div>
 
   <main class="wrap">
     <section class="notfound">
@@ -46,5 +55,6 @@
   </div>
 </footer>
 
+  <script src="/js/main.js"></script>
 </body>
 </html>
