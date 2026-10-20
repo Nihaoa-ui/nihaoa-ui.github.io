@@ -1,0 +1,53 @@
+<% var posts = page.posts.toArray(); %>
+<div class="home">
+  <section class="home-main">
+    <h1 class="section-title">文章</h1>
+    <ul class="post-list">
+      <% posts.forEach(function (post) { %>
+        <li class="post-item">
+          <div class="post-meta">
+            <time><%= date(post.date, 'YYYY-MM-DD') %></time>
+            <span><%= first_category(post) %></span>
+          </div>
+          <h2><a href="<%- url_for(post.path) %>"><%= post.title %></a></h2>
+          <p><%= plain_excerpt(post, 110) %></p>
+        </li>
+      <% }) %>
+    </ul>
+    <% if (page.total > 1) { %>
+      <div class="pager">
+        <% if (page.prev_link) { %><a href="<%- url_for(page.prev_link) %>">← 上一页</a><% } %>
+        <span><%= page.current %> / <%= page.total %></span>
+        <% if (page.next_link) { %><a href="<%- url_for(page.next_link) %>">下一页 →</a><% } %>
+      </div>
+    <% } %>
+  </section>
+
+  <aside class="home-side">
+    <section class="side-block">
+      <h2>关于</h2>
+      <p>数学系大一，课余写 Go 后端。这里记踩过的坑、搭过的东西，和没想明白的问题。</p>
+      <p><a href="<%- url_for('/about/') %>">更多 →</a></p>
+    </section>
+    <section class="side-block">
+      <h2>分类</h2>
+      <ul class="side-list">
+        <% site.categories.sort('name').each(function (cat) { %>
+          <li><a href="<%- url_for(cat.path) %>"><%= cat.name %></a><span><%= cat.length %></span></li>
+        <% }) %>
+      </ul>
+    </section>
+    <section class="side-block">
+      <h2>标签</h2>
+      <div class="side-tags">
+        <% site.tags.sort('name').each(function (tag) { %>
+          <a href="<%- url_for(tag.path) %>">#<%= tag.name %></a>
+        <% }) %>
+      </div>
+    </section>
+    <section class="side-block">
+      <h2>友链</h2>
+      <p><a href="<%- url_for('/links/') %>">朋友们 →</a></p>
+    </section>
+  </aside>
+</div>

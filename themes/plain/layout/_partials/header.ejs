@@ -1,0 +1,10 @@
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="site-title" href="<%- url_for('/') %>"><%= config.title %></a>
+    <nav class="site-nav">
+      <% (theme.menu || []).forEach(function (item) { %>
+        <a href="<%- url_for(item.url) %>"><%= item.name %></a>
+      <% }) %>
+    </nav>
+  </div>
+</header>

@@ -91,7 +91,7 @@ exclude:
 ignore:
 
 # Extensions
-theme: paper
+theme: plain
 
 # Deployment
 deploy:

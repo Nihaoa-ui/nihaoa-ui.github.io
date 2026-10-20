@@ -1,0 +1,14 @@
+<header class="page-header">
+  <h1>友链</h1>
+  <p>常去的地方。</p>
+</header>
+<ul class="friend-list">
+  <% (site.data.links || []).forEach(function (link) { %>
+    <li>
+      <a href="<%- link.url %>" target="_blank" rel="noopener"><%= link.name %></a>
+      <span><%= link.desc %></span>
+      <em><%= link.url.replace(/^https?:\/\//, '').replace(/\/.*$/, '') %></em>
+    </li>
+  <% }) %>
+</ul>
+<p class="friend-note">想交换友链，去 <a href="https://github.com/Nihaoa-ui" target="_blank" rel="noopener">GitHub</a> 找我。</p>

@@ -1,0 +1,16 @@
+<% var posts = site.posts.sort('-date').toArray(); %>
+<% var groups = {}; posts.forEach(function (p) { var y = date(p.date, 'YYYY'); (groups[y] = groups[y] || []).push(p); }); %>
+<header class="page-header">
+  <h1>归档</h1>
+  <p>共 <%= posts.length %> 篇</p>
+</header>
+<% Object.keys(groups).forEach(function (year) { %>
+  <section class="archive-year">
+    <h2><%= year %></h2>
+    <ul>
+      <% groups[year].forEach(function (post) { %>
+        <li><time><%= date(post.date, 'MM-DD') %></time><a href="<%- url_for(post.path) %>"><%= post.title %></a></li>
+      <% }) %>
+    </ul>
+  </section>
+<% }) %>
