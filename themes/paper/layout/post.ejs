@@ -47,4 +47,31 @@
       </aside>
     <% } %>
   </div>
+
+  <% if (config.giscus && config.giscus.enable) { %>
+    <div class="container comments-wrap">
+      <section class="comments" id="comments">
+        <div class="comments-head">
+          <span>评论</span>
+          <em>用 GitHub 账号登录后发言，点 👍 也算赞</em>
+        </div>
+        <script src="https://giscus.app/client.js"
+          data-repo="<%= config.giscus.repo %>"
+          data-repo-id="<%= config.giscus.repo_id %>"
+          data-category="<%= config.giscus.category %>"
+          data-category-id="<%= config.giscus.category_id %>"
+          data-mapping="<%= config.giscus.mapping %>"
+          data-strict="<%= config.giscus.strict %>"
+          data-reactions-enabled="<%= config.giscus.reactions_enabled %>"
+          data-emit-metadata="0"
+          data-input-position="<%= config.giscus.input_position %>"
+          data-theme="<%= config.giscus.theme %>"
+          data-lang="<%= config.giscus.lang %>"
+          data-loading="lazy"
+          crossorigin="anonymous"
+          async>
+        </script>
+      </section>
+    </div>
+  <% } %>
 </div>
