@@ -5,6 +5,16 @@
   desc: 椰子鸡的blog，Hexo + Shoka，记录折腾
   avatar: ""
 
+- name: Aveline Noir
+  url: https://blog.rgsuk.org
+  desc: 牛津的blog，记录日常
+  avatar: ""
+
+- name: Linstar
+  url: https://blog.linstar.cn
+  desc: 猹的blog，记录折腾
+  avatar: ""
+
 # - name: 某某
 #   url: https://example.com/
 #   desc: 一句话介绍
