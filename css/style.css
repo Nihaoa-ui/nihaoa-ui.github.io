@@ -1333,3 +1333,38 @@ body {
   .friend-grid { grid-template-columns: 1fr; }
   .friend-note { grid-template-columns: 1fr; gap: 24px; }
 }
+
+/* ============================================================
+   v6 · 评论
+   ============================================================ */
+
+.comments-wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 0 80px;
+}
+
+.comments {
+  margin-top: 12px;
+  padding-top: 26px;
+  border-top: 1px solid var(--ink);
+}
+
+.comments-head {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.comments-head span { font-size: 20px; letter-spacing: 0.08em; }
+
+.comments-head em {
+  font-style: normal;
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--faint);
+}
+
+.giscus, .giscus-frame { width: 100%; }
