@@ -5,6 +5,8 @@
       <% (theme.menu || []).forEach(function (item) { %>
         <a href="<%- url_for(item.url) %>"><%= item.name %></a>
       <% }) %>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="切换明暗">◐</button>
     </nav>
   </div>
 </header>
+<div class="progress" id="progress"></div>

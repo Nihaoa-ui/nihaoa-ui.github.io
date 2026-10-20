@@ -4,5 +4,12 @@
   <title><%= page.title ? page.title + ' · ' + config.title : config.title %></title>
   <meta name="description" content="<%= page.description || config.description || config.title %>">
   <link rel="icon" href="<%- url_for('/img/favicon.png') %>">
+  <script>
+    (function () {
+      var saved = localStorage.getItem('theme');
+      var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.dataset.theme = theme;
+    })();
+  </script>
   <link rel="stylesheet" href="<%- url_for('/css/plain.css') %>">
 </head>

@@ -1,48 +1,65 @@
-<article class="post">
-  <header class="post-header">
-    <h1><%= page.title %></h1>
-    <div class="post-meta">
-      <time><%= date(page.date, 'YYYY-MM-DD') %></time>
-      <span><%= first_category(page) %></span>
-      <span>约 <%= reading_time(page) %> 分钟</span>
+<% var tocHtml = toc(page.content, { list_number: false }); %>
+<div class="post-layout<%= tocHtml ? '' : ' no-toc' %>">
+  <article class="post">
+    <header class="post-header">
+      <h1><%= page.title %></h1>
+      <div class="post-meta">
+        <time><%= date(page.date, 'YYYY-MM-DD') %></time>
+        <span><%= first_category(page) %></span>
+        <span>约 <%= reading_time(page) %> 分钟</span>
+      </div>
+    </header>
+
+    <% if (tocHtml) { %>
+      <details class="toc-inline">
+        <summary>目录</summary>
+        <%- tocHtml %>
+      </details>
+    <% } %>
+
+    <div class="prose">
+      <%- page.content %>
     </div>
-  </header>
 
-  <div class="prose">
-    <%- page.content %>
-  </div>
+    <% if (page.tags && page.tags.length) { %>
+      <div class="post-tags">
+        <% page.tags.each(function (tag) { %><a href="<%- url_for(tag.path) %>">#<%= tag.name %></a><% }) %>
+      </div>
+    <% } %>
 
-  <% if (page.tags && page.tags.length) { %>
-    <div class="post-tags">
-      <% page.tags.each(function (tag) { %><a href="<%- url_for(tag.path) %>">#<%= tag.name %></a><% }) %>
-    </div>
+    <nav class="post-nav">
+      <% if (page.prev) { %><a href="<%- url_for(page.prev.path) %>">← <%= page.prev.title %></a><% } %>
+      <% if (page.next) { %><a class="next" href="<%- url_for(page.next.path) %>"><%= page.next.title %> →</a><% } %>
+    </nav>
+
+    <% if (config.giscus && config.giscus.enable) { %>
+      <section class="comments" id="comments">
+        <h2>评论</h2>
+        <p class="comments-note">用 GitHub 账号登录后发言。</p>
+        <script src="https://giscus.app/client.js"
+          data-repo="<%= config.giscus.repo %>"
+          data-repo-id="<%= config.giscus.repo_id %>"
+          data-category="<%= config.giscus.category %>"
+          data-category-id="<%= config.giscus.category_id %>"
+          data-mapping="<%= config.giscus.mapping %>"
+          data-strict="<%= config.giscus.strict %>"
+          data-reactions-enabled="<%= config.giscus.reactions_enabled %>"
+          data-emit-metadata="0"
+          data-input-position="<%= config.giscus.input_position %>"
+          data-theme="<%= config.giscus.theme %>"
+          data-lang="<%= config.giscus.lang %>"
+          data-loading="lazy"
+          crossorigin="anonymous"
+          async>
+        </script>
+      </section>
+    <% } %>
+  </article>
+
+  <% if (tocHtml) { %>
+    <aside class="toc-side">
+      <div class="toc-title">目录</div>
+      <%- tocHtml %>
+    </aside>
   <% } %>
-
-  <nav class="post-nav">
-    <% if (page.prev) { %><a href="<%- url_for(page.prev.path) %>">← <%= page.prev.title %></a><% } %>
-    <% if (page.next) { %><a class="next" href="<%- url_for(page.next.path) %>"><%= page.next.title %> →</a><% } %>
-  </nav>
-
-  <% if (config.giscus && config.giscus.enable) { %>
-    <section class="comments" id="comments">
-      <h2>评论</h2>
-      <p class="comments-note">用 GitHub 账号登录后发言。</p>
-      <script src="https://giscus.app/client.js"
-        data-repo="<%= config.giscus.repo %>"
-        data-repo-id="<%= config.giscus.repo_id %>"
-        data-category="<%= config.giscus.category %>"
-        data-category-id="<%= config.giscus.category_id %>"
-        data-mapping="<%= config.giscus.mapping %>"
-        data-strict="<%= config.giscus.strict %>"
-        data-reactions-enabled="<%= config.giscus.reactions_enabled %>"
-        data-emit-metadata="0"
-        data-input-position="<%= config.giscus.input_position %>"
-        data-theme="<%= config.giscus.theme %>"
-        data-lang="<%= config.giscus.lang %>"
-        data-loading="lazy"
-        crossorigin="anonymous"
-        async>
-      </script>
-    </section>
-  <% } %>
-</article>
+</div>
