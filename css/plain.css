@@ -814,3 +814,13 @@ html[data-theme="dark"] .prose figure.highlight .variable { color: #7ee787; }
 .modal-links a { color: var(--link); }
 
 .intro-text strong .intro-link { font-weight: inherit; }
+
+.intro-ext {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--link);
+  text-underline-offset: 3px;
+}
+
+.intro-ext:hover { color: var(--link); }
