@@ -44,19 +44,21 @@
 })();
 
 (function () {
-  var modal = document.getElementById('about-modal');
-  if (!modal) return;
-  var openers = document.querySelectorAll('[data-open="about-modal"]');
-  openers.forEach(function (btn) {
+  document.querySelectorAll('[data-open]').forEach(function (btn) {
     btn.addEventListener('click', function () {
+      var modal = document.getElementById(btn.getAttribute('data-open'));
+      if (!modal) return;
       if (typeof modal.showModal === 'function') modal.showModal();
       else modal.setAttribute('open', '');
     });
   });
-  modal.addEventListener('click', function (e) {
-    if (e.target === modal) modal.close();
-  });
-  modal.querySelectorAll('[data-close]').forEach(function (btn) {
-    btn.addEventListener('click', function () { modal.close(); });
+
+  document.querySelectorAll('dialog.intro-modal').forEach(function (modal) {
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal) modal.close();
+    });
+    modal.querySelectorAll('[data-close]').forEach(function (btn) {
+      btn.addEventListener('click', function () { modal.close(); });
+    });
   });
 })();
