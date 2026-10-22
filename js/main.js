@@ -42,3 +42,21 @@
     headings.forEach(function (h) { if (h.id) observer.observe(h); });
   }
 })();
+
+(function () {
+  var modal = document.getElementById('about-modal');
+  if (!modal) return;
+  var openers = document.querySelectorAll('[data-open="about-modal"]');
+  openers.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      if (typeof modal.showModal === 'function') modal.showModal();
+      else modal.setAttribute('open', '');
+    });
+  });
+  modal.addEventListener('click', function (e) {
+    if (e.target === modal) modal.close();
+  });
+  modal.querySelectorAll('[data-close]').forEach(function (btn) {
+    btn.addEventListener('click', function () { modal.close(); });
+  });
+})();
