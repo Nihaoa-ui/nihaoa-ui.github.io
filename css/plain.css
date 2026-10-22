@@ -721,3 +721,6 @@ html[data-theme="dark"] .prose figure.highlight .variable { color: #7ee787; }
   .intro-avatar { width: 64px; height: 64px; order: -1; }
   .intro-title { font-size: 36px; }
 }
+
+.intro-avatar-wrap { width: 96px; height: 96px; display: block; }
+.intro-avatar { width: 100%; height: 100%; object-fit: cover; }
