@@ -726,7 +726,7 @@ html[data-theme="dark"] .prose figure.highlight .variable { color: #7ee787; }
 .intro-avatar { width: 100%; height: 100%; object-fit: cover; }
 
 /* 简介里的强调 */
-.intro-text strong { font-weight: 700; color: var(--text); }
+.intro-text strong { font-weight: 900; color: var(--text); }
 
 .intro-text u,
 .intro-note u {
@@ -812,3 +812,5 @@ html[data-theme="dark"] .prose figure.highlight .variable { color: #7ee787; }
 }
 
 .modal-links a { color: var(--link); }
+
+.intro-text strong .intro-link { font-weight: inherit; }
