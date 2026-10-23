@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>博客的部分搭建经历 · 不吃香菜</title>
+  <meta name="description" content="记踩过的坑、搭过的东西，和没想明白的问题。">
+  <link rel="icon" href="/img/favicon.png">
+  <script>
+    (function () {
+      var saved = localStorage.getItem('theme');
+      var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.dataset.theme = theme;
+    })();
+  </script>
+  <link rel="stylesheet" href="/css/plain.css">
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <header class="site-header">
+  <div class="wrap header-inner">
+    <a class="site-title" href="/">不吃香菜</a>
+    <nav class="site-nav">
+      
+        <a href="/">文章</a>
+      
+        <a href="/archives/">归档</a>
+      
+        <a href="/categories/">分类</a>
+      
+        <a href="/tags/">标签</a>
+      
+        <a href="/links/">友链</a>
+      
+        <a href="/about/">关于</a>
+      
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="切换明暗">◐</button>
+    </nav>
+  </div>
+</header>
+<div class="progress" id="progress"></div>
+
+  <main class="wrap">
+    
+<div class="post-layout">
+  <article class="post">
+    <header class="post-header">
+      <h1>博客的部分搭建经历</h1>
+      <div class="post-meta">
+        <time>2026-10-23</time>
+        <span>随笔</span>
+        <span>约 3 分钟</span>
+      </div>
+    </header>
+
+    
+      <details class="toc-inline">
+        <summary>目录</summary>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%89%8D%E8%A8%80"><span class="toc-text">一、前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%B8%BB%E9%A2%98"><span class="toc-text">二、主题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E4%BB%A3%EF%BC%9AFluid"><span class="toc-text">第一代：Fluid</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E4%BB%A3%EF%BC%9APaper%EF%BC%8C%E7%BA%B8%E6%84%9F%E6%8E%92%E7%89%88"><span class="toc-text">第二代：Paper，纸感排版</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E4%BB%A3%EF%BC%9APlain%EF%BC%8C%E6%9E%81%E7%AE%80%E7%99%BD%E5%BA%95"><span class="toc-text">第三代：Plain，极简白底</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8C%E4%B8%80%E5%A4%A9%EF%BC%8C%E5%8F%88%E5%80%9F%E4%BA%86%E4%B8%80%E5%B1%82-TiO%E2%82%82-%E7%9A%84%E9%98%85%E8%AF%BB%E6%8E%92%E7%89%88"><span class="toc-text">同一天，又借了一层 TiO₂ 的阅读排版</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%B0%E5%9C%A8%EF%BC%9APlain-%E5%8A%A0%E4%B8%80%E7%82%B9%E4%BA%A4%E4%BA%92"><span class="toc-text">现在：Plain 加一点交互</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-text">最后</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8B%E9%93%BE"><span class="toc-text">友链</span></a></li></ol>
+      </details>
+    
+
+    <div class="prose">
+      <h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>刚开始是在加入jhwl之前，因为害怕面试过不了，求助鲨博大人，他给的搭建blog的建议，虽然当时大部分是ai搭建的，但也好在让我成功的通过了，后面一段时间就没管blog<br>但在见到一些👋的blog做的如此精美之后，感觉自己的太low了，我就让ds大人去仿照他们，每个都汲取了一点，结果导致观感很差，甚至反胃<br>上一篇搭建经历是AI大人全权搭建，vibecoding一下很舒服喵，所以这个我就用来写一些心得（嘛，差不多吧..），虽然但是后续的主题等方面也差不多ai大人干的，但至少我也参与了一点点喵（</p>
+<h2 id="二、主题"><a href="#二、主题" class="headerlink" title="二、主题"></a>二、主题</h2><p>这个玩意是让我最难受的，把不同的人的主题混杂在一起，导致观感很差</p>
+<h3 id="第一代：Fluid"><a href="#第一代：Fluid" class="headerlink" title="第一代：Fluid"></a>第一代：Fluid</h3><p>最开始线上跑的是 Fluid 1.9.9。<br>后来我见到一些别人的blog，感觉观感差别很大，就改掉了</p>
+<h3 id="第二代：Paper，纸感排版"><a href="#第二代：Paper，纸感排版" class="headerlink" title="第二代：Paper，纸感排版"></a>第二代：Paper，纸感排版</h3><p>2026 年 10 月 18 日，我写了第一个完全自建的主题，叫 <code>paper</code>。</p>
+<p>它的底色是米色纸感，正文用宋体，首屏是墨色的大标题，底部有一道波浪，文章列表做成索引卡的样子，文章页带目录。<br>后来这个主题又加了不少东西：</p>
+<ul>
+<li>正文换成楷体</li>
+<li>首页的问候语</li>
+<li>点击时落下的纸屑</li>
+<li>建站天数</li>
+<li>友链页和名片墙</li>
+<li>更完整的分类、标签、404 页面</li>
+</ul>
+<p>纸感主题好看是好看，但整体更像一个“作品集”，装饰层比较多。看久了之后，我还是想要一个更干净的阅读界面。</p>
+<h3 id="第三代：Plain，极简白底"><a href="#第三代：Plain，极简白底" class="headerlink" title="第三代：Plain，极简白底"></a>第三代：Plain，极简白底</h3><p>后来，我换成了现在的 <code>plain</code>。</p>
+<p>这一版把纸纹、波浪、纸屑全去掉了：</p>
+<ul>
+<li>正文用楷体</li>
+<li>粘性头部</li>
+<li>简洁的文章列表</li>
+<li>文章页接入 giscus 评论</li>
+</ul>
+<h3 id="同一天，又借了一层-TiO₂-的阅读排版"><a href="#同一天，又借了一层-TiO₂-的阅读排版" class="headerlink" title="同一天，又借了一层 TiO₂ 的阅读排版"></a>同一天，又借了一层 TiO₂ 的阅读排版</h3><p>换完白底之后，我又参考 TiO₂ 的阅读版式（椰子鸡大人…），在 <code>plain</code> 上补了一层：</p>
+<ul>
+<li>标题换成宋体</li>
+<li>右侧粘性目录</li>
+<li>明暗主题切换</li>
+<li>顶部阅读进度条</li>
+<li>代码块、引用、表格的样式</li>
+</ul>
+<p>注意，这只是“借版式”，没有把博客迁移到 TiO₂ 的 Eleventy&#x2F;Vite 框架。<code>plain</code> 仍然是 Hexo 主题。</p>
+<h3 id="现在：Plain-加一点交互"><a href="#现在：Plain-加一点交互" class="headerlink" title="现在：Plain 加一点交互"></a>现在：Plain 加一点交互</h3><p>再往后，主题骨架没有再大改，加的主要是内容和交互：</p>
+<ul>
+<li>简介里的重点词加粗，点开是独立小卡片</li>
+<li>旅行者、开拓者、漂泊者、绳匠、导演，各有一个卡片</li>
+<li>「将军」做成外链，点进去是三国杀官网</li>
+<li>「sensei」点开随机播放一段碧蓝档案角色语音，可以点「下一个」</li>
+<li>「管理员」点开自动播放终末地语音，还能进列表挑其他 31 条</li>
+</ul>
+<p>oh，其实还想做一点，但是好虚弱…</p>
+<p>所以现在博客的主题，准确说是：</p>
+<blockquote>
+<p><strong>自建的 <code>plain</code>，白底 + 楷体正文 + 宋体标题 + 右侧目录 + 明暗切换，再挂一些弹窗和语音交互。</strong></p>
+</blockquote>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>主题大概还会继续改。不确定，但应该也不会了（喵</p>
+<h2 id="友链"><a href="#友链" class="headerlink" title="友链"></a>友链</h2><p>ohohoh，互换友链的来！！</p>
+
+    </div>
+
+    
+
+    <nav class="post-nav">
+      
+      <a class="next" href="/2026/10/18/newcomputer-first-note/">转到新电脑的第一篇文章 →</a>
+    </nav>
+
+    
+      <section class="comments" id="comments">
+        <h2>评论</h2>
+        <p class="comments-note">用 GitHub 账号登录后发言。</p>
+        <script src="https://giscus.app/client.js"
+          data-repo="Nihaoa-ui/nihaoa-ui.github.io"
+          data-repo-id="R_kgDOUPuHBQ"
+          data-category="Announcements"
+          data-category-id="DIC_kwDOUPuHBc4DJHOo"
+          data-mapping="pathname"
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="top"
+          data-theme="light"
+          data-lang="zh-CN"
+          data-loading="lazy"
+          crossorigin="anonymous"
+          async>
+        </script>
+      </section>
+    
+  </article>
+
+  
+    <aside class="toc-side">
+      <div class="toc-title">目录</div>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%89%8D%E8%A8%80"><span class="toc-text">一、前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%B8%BB%E9%A2%98"><span class="toc-text">二、主题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E4%BB%A3%EF%BC%9AFluid"><span class="toc-text">第一代：Fluid</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E4%BB%A3%EF%BC%9APaper%EF%BC%8C%E7%BA%B8%E6%84%9F%E6%8E%92%E7%89%88"><span class="toc-text">第二代：Paper，纸感排版</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E4%BB%A3%EF%BC%9APlain%EF%BC%8C%E6%9E%81%E7%AE%80%E7%99%BD%E5%BA%95"><span class="toc-text">第三代：Plain，极简白底</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8C%E4%B8%80%E5%A4%A9%EF%BC%8C%E5%8F%88%E5%80%9F%E4%BA%86%E4%B8%80%E5%B1%82-TiO%E2%82%82-%E7%9A%84%E9%98%85%E8%AF%BB%E6%8E%92%E7%89%88"><span class="toc-text">同一天，又借了一层 TiO₂ 的阅读排版</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%B0%E5%9C%A8%EF%BC%9APlain-%E5%8A%A0%E4%B8%80%E7%82%B9%E4%BA%A4%E4%BA%92"><span class="toc-text">现在：Plain 加一点交互</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-text">最后</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8B%E9%93%BE"><span class="toc-text">友链</span></a></li></ol>
+    </aside>
+  
+</div>
+
+  </main>
+  <footer class="site-footer">
+  <div class="wrap footer-inner">
+    <span>© 2026 不吃香菜</span>
+    <span>Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a></span>
+  </div>
+</footer>
+
+  <script src="/js/main.js?v=2"></script>
+</body>
+</html>
