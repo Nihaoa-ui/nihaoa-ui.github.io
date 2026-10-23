@@ -815,12 +815,3 @@ html[data-theme="dark"] .prose figure.highlight .variable { color: #7ee787; }
 
 .intro-text strong .intro-link { font-weight: inherit; }
 
-.intro-ext {
-  color: inherit;
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-decoration-color: currentColor;
-  text-underline-offset: 3px;
-}
-
-.intro-ext:hover { color: inherit; }
