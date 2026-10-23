@@ -2,18 +2,31 @@
 # avatar 可以留空，会自动用名字首字做头像
 - name: FicrousWAY
   url: https://www.ficrousway.top/
-  desc: 椰子鸡的blog，记录折腾
+  desc: 椰子鸡的blog
   avatar: ""
 
 - name: Aveline Noir
   url: https://blog.rgsuk.org
-  desc: 牛津的blog，记录日常
+  desc: 牛津的blog
   avatar: ""
 
 - name: Linstar
   url: https://blog.linstar.cn
-  desc: 猹的blog，记录折腾
+  desc: 猹的blog
   avatar: ""
+
+- name: VanillaWhitePeony
+  url: https://tohsaka-rin.blog
+  desc: 香草白牡丹的blog
+  avatar: ""
+
+- name: Luomic
+  url: https://blog.luomic.com
+  desc: Luomic的blog
+  avatar: ""
+
+
+
 
 # - name: 某某
 #   url: https://example.com/

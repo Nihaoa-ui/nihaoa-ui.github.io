@@ -117,8 +117,22 @@
     <p>你好，塔卫二的管理员</p>
     <p>协议已同步，欢迎回到终末地工业</p>
     <audio class="modal-audio" controls preload="metadata" src="<%- url_for('/audio/endfield.m4a') %>"></audio>
+    <button type="button" class="voice-more" data-open="voice-list">更多语音 →</button>
   </div>
 </dialog>
+
+<dialog id="voice-list" class="intro-modal">
+  <div class="modal-head">
+    <h2>终末地语音</h2>
+    <button type="button" class="modal-close" data-close aria-label="关闭">×</button>
+  </div>
+  <div class="modal-body">
+    <div class="voice-list" id="voice-list-items"></div>
+    <audio id="voice-player" class="modal-audio" controls preload="none"></audio>
+  </div>
+</dialog>
+
+<script id="endfield-voice-data" type="application/json"><%- JSON.stringify(site.data.endfield_voices || []) %></script>
 
 <script id="sensei-data" type="application/json"><%- JSON.stringify(site.data.sensei || []) %></script>
 

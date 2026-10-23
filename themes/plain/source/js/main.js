@@ -48,12 +48,21 @@
     btn.addEventListener('click', function () {
       var modal = document.getElementById(btn.getAttribute('data-open'));
       if (!modal) return;
+      document.querySelectorAll('dialog.intro-modal audio').forEach(function (a) { if (!modal.contains(a)) a.pause(); });
       if (typeof modal.showModal === 'function') modal.showModal();
       else modal.setAttribute('open', '');
       var audio = modal.querySelector('audio');
-      if (audio) { audio.currentTime = 0; audio.play().catch(function () {}); }
+      if (audio) { audio.load(); audio.currentTime = 0; var pr = audio.play(); if (pr && pr.catch) pr.catch(function () {}); }
     });
   });
+
+  var adminTrigger = document.querySelector('[data-open="modal-admin"]');
+  if (adminTrigger) {
+    adminTrigger.addEventListener('pointerdown', function () {
+      var a = document.querySelector('#modal-admin audio');
+      if (a) { a.currentTime = 0; var p = a.play(); if (p && p.catch) p.catch(function () {}); }
+    });
+  }
 
   document.querySelectorAll('dialog.intro-modal').forEach(function (modal) {
     modal.addEventListener('click', function (e) {
@@ -118,4 +127,30 @@
   });
 
   if (next) next.addEventListener('click', playRandom);
+})();
+
+(function () {
+  var dataEl = document.getElementById('endfield-voice-data');
+  var listEl = document.getElementById('voice-list-items');
+  var player = document.getElementById('voice-player');
+  if (!dataEl || !listEl || !player) return;
+
+  var items = [];
+  try { items = JSON.parse(dataEl.textContent || '[]'); } catch (e) { items = []; }
+
+  items.forEach(function (item) {
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'voice-item';
+    btn.textContent = item.title;
+    btn.addEventListener('click', function () {
+      listEl.querySelectorAll('.voice-item').forEach(function (x) { x.classList.remove('active'); });
+      btn.classList.add('active');
+      player.src = item.src;
+      player.currentTime = 0;
+      var p = player.play();
+      if (p && p.catch) p.catch(function () {});
+    });
+    listEl.appendChild(btn);
+  });
 })();
