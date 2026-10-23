@@ -50,6 +50,8 @@
       if (!modal) return;
       if (typeof modal.showModal === 'function') modal.showModal();
       else modal.setAttribute('open', '');
+      var audio = modal.querySelector('audio');
+      if (audio) { audio.currentTime = 0; audio.play().catch(function () {}); }
     });
   });
 
@@ -59,6 +61,9 @@
     });
     modal.querySelectorAll('[data-close]').forEach(function (btn) {
       btn.addEventListener('click', function () { modal.close(); });
+    });
+    modal.addEventListener('close', function () {
+      modal.querySelectorAll('audio').forEach(function (a) { a.pause(); a.currentTime = 0; });
     });
   });
 })();
