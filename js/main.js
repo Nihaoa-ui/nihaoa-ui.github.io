@@ -51,9 +51,17 @@
       if (typeof modal.showModal === 'function') modal.showModal();
       else modal.setAttribute('open', '');
       var audio = modal.querySelector('audio');
-      if (audio) { audio.currentTime = 0; audio.play().catch(function () {}); }
+      if (audio) { audio.load(); audio.currentTime = 0; var pr = audio.play(); if (pr && pr.catch) pr.catch(function () {}); }
     });
   });
+
+  var adminTrigger = document.querySelector('[data-open="modal-admin"]');
+  if (adminTrigger) {
+    adminTrigger.addEventListener('pointerdown', function () {
+      var a = document.querySelector('#modal-admin audio');
+      if (a) { a.currentTime = 0; var p = a.play(); if (p && p.catch) p.catch(function () {}); }
+    });
+  }
 
   document.querySelectorAll('dialog.intro-modal').forEach(function (modal) {
     modal.addEventListener('click', function (e) {
