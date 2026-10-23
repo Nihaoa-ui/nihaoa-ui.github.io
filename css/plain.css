@@ -831,3 +831,5 @@ html[data-theme="dark"] .prose figure.highlight .variable { color: #7ee787; }
   cursor: pointer;
 }
 .sensei-next:hover { text-decoration: underline; }
+
+.modal-audio { width: 100%; margin-top: 10px; }
