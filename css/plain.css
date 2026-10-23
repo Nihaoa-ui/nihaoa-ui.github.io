@@ -815,3 +815,7 @@ html[data-theme="dark"] .prose figure.highlight .variable { color: #7ee787; }
 
 .intro-text strong .intro-link { font-weight: inherit; }
 
+
+.sensei-stage { min-height: 80px; display: flex; align-items: center; justify-content: center; }
+.sensei-stage img, .sensei-stage video { max-width: 100%; max-height: 70vh; border-radius: 6px; display: block; }
+.sensei-empty { color: var(--faint); font-size: 13px; text-align: center; }

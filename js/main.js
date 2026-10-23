@@ -62,3 +62,43 @@
     });
   });
 })();
+
+(function () {
+  var trigger = document.getElementById('sensei-trigger');
+  var modal = document.getElementById('sensei-modal');
+  var stage = document.getElementById('sensei-stage');
+  var dataEl = document.getElementById('sensei-data');
+  if (!trigger || !modal || !stage || !dataEl) return;
+
+  trigger.addEventListener('click', function () {
+    var list = [];
+    try { list = JSON.parse(dataEl.textContent || '[]'); } catch (e) { list = []; }
+    stage.innerHTML = '';
+    if (!list.length) {
+      var p = document.createElement('p');
+      p.className = 'sensei-empty';
+      p.textContent = '动画还没放进来。';
+      stage.appendChild(p);
+    } else {
+      var item = list[Math.floor(Math.random() * list.length)];
+      var el;
+      if (item.type === 'video') {
+        el = document.createElement('video');
+        el.src = item.src;
+        el.autoplay = true;
+        el.loop = true;
+        el.muted = false;
+        el.playsInline = true;
+        el.controls = true;
+      } else {
+        el = document.createElement('img');
+        el.src = item.src;
+        el.alt = 'sensei';
+      }
+      stage.appendChild(el);
+      if (typeof el.play === 'function') el.play().catch(function () {});
+    }
+    if (typeof modal.showModal === 'function') modal.showModal();
+    else modal.setAttribute('open', '');
+  });
+})();
