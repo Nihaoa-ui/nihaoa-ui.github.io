@@ -86,7 +86,7 @@
         el = document.createElement('video');
         el.src = item.src;
         el.autoplay = true;
-        el.loop = true;
+        el.loop = false;
         el.muted = false;
         el.playsInline = true;
         el.controls = true;
