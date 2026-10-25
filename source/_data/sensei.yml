@@ -1,4 +1,4 @@
-# sensei 随机动画（按角色切分）
+# sensei 随机动画（已移除部分角色）
 - type: video
   src: /img/sensei/01.mp4
 - type: video
@@ -22,29 +22,13 @@
 - type: video
   src: /img/sensei/11.mp4
 - type: video
-  src: /img/sensei/12.mp4
-- type: video
-  src: /img/sensei/13.mp4
-- type: video
-  src: /img/sensei/14.mp4
-- type: video
-  src: /img/sensei/15.mp4
-- type: video
   src: /img/sensei/16.mp4
-- type: video
-  src: /img/sensei/17.mp4
 - type: video
   src: /img/sensei/18.mp4
 - type: video
   src: /img/sensei/19.mp4
 - type: video
-  src: /img/sensei/20.mp4
-- type: video
-  src: /img/sensei/21.mp4
-- type: video
   src: /img/sensei/22.mp4
-- type: video
-  src: /img/sensei/23.mp4
 - type: video
   src: /img/sensei/24.mp4
 - type: video
@@ -67,14 +51,6 @@
   src: /img/sensei/33.mp4
 - type: video
   src: /img/sensei/34.mp4
-- type: video
-  src: /img/sensei/35.mp4
-- type: video
-  src: /img/sensei/36.mp4
-- type: video
-  src: /img/sensei/37.mp4
-- type: video
-  src: /img/sensei/38.mp4
 - type: video
   src: /img/sensei/39.mp4
 - type: video
